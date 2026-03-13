@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关键词生成器 | 青山疗养院</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .generator-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+        .result-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result-box.show {
+            display: block;
+        }
+        .hash-result {
+            font-family: monospace;
+            font-size: 14px;
+            color: #f39c12;
+            word-break: break-all;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(243, 156, 18, 0.1);
+            border-radius: 3px;
+        }
+        .json-result {
+            font-family: monospace;
+            font-size: 12px;
+            color: #2ecc71;
+            word-break: break-all;
+            margin: 10px 0;
+            padding: 15px;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: 3px;
+            white-space: pre-wrap;
+        }
+        .generate-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .generate-btn:hover {
+            background: #c0392b;
+        }
+        .copy-btn {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #555;
+            padding: 5px 15px;
+            font-size: 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 10px;">关键词生成器</h1>
+        <p style="text-align: center; color: #666;">为青山疗养院解密游戏生成加密关键词</p>
+
+        <div class="generator-box">
+            <div class="input-group">
+                <label>关键词（玩家输入的内容）</label>
+                <input type="text" id="keywordInput" placeholder="例如：林国栋">
+            </div>
+
+            <div class="input-group">
+                <label>页面URL（相对于 pages/ 目录的路径）</label>
+                <input type="text" id="urlInput" placeholder="例如：secret/layer2/secret-10.html">
+            </div>
+
+            <div style="text-align: center;">
+                <button class="generate-btn" onclick="generateHash()">生成哈希</button>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <h3 style="margin-bottom: 15px;">生成结果</h3>
+
+                <div>
+                    <label>MD5 + Base64 哈希：</label>
+                    <div class="hash-result" id="hashResult"></div>
+                    <button class="copy-btn" onclick="copyHash()">复制</button>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <label>JSON 配置（添加到 keywords.json）：</label>
+                    <div class="json-result" id="jsonResult"></div>
+                    <button class="copy-btn" onclick="copyJson()">复制 JSON</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 5px; padding: 20px; margin-top: 20px;">
+            <h3 style="color: #e74c3c; margin-bottom: 10px;">使用说明</h3>
+            <ol style="color: #aaa; line-height: 1.8; margin-left: 20px;">
+                <li>输入关键词（玩家需要在搜索框中输入的内容）</li>
+                <li>输入对应的秘密页面路径（相对于 pages/ 目录，例如：secret/layer1/secret-05.html）</li>
+                <li>点击"生成哈希"按钮</li>
+                <li>复制生成的 JSON 配置</li>
+                <li>粘贴到 js/keywords.json 文件中</li>
+                <li>创建对应的 HTML 页面文件</li>
+            </ol>
+        </div>
+
+        <a href="main.html" class="back-btn" style="margin-top: 30px;">返回首页</a>
+    </div>
+
+    <script src="js/md5.min.js"></script>
+    <script>
+        function generateHash() {
+            var keyword = document.getElementById('keywordInput').value.trim();
+            var url = document.getElementById('urlInput').value.trim();
+
+            if (!keyword) {
+                alert('请输入关键词');
+                return;
+            }
+            if (!url) {
+                alert('请输入页面URL');
+                return;
+            }
+
+            // 计算 MD5 + Base64
+            var md5Hash = md5(keyword.toLowerCase());
+            var base64Hash = btoa(md5Hash);
+
+            document.getElementById('hashResult').textContent = base64Hash;
+
+            // 生成 JSON
+            var jsonObj = {};
+            jsonObj[base64Hash] = url;
+            var jsonStr = JSON.stringify(jsonObj, null, 4);
+            // 去掉外层的大括号
+            jsonStr = jsonStr.substring(2, jsonStr.length - 2) + ',';
+
+            document.getElementById('jsonResult').textContent = jsonStr;
+            document.getElementById('resultBox').classList.add('show');
+        }
+
+        function copyHash() {
+            var hash = document.getElementById('hashResult').textContent;
+            copyToClipboard(hash);
+        }
+
+        function copyJson() {
+            var json = document.getElementById('jsonResult').textContent;
+            copyToClipboard(json);
+        }
+
+        function copyToClipboard(text) {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('已复制到剪贴板');
+        }
+
+        // 回车键生成
+        document.getElementById('keywordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateHash();
+        });
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateHash();
+        });
+    </script>
+</body>
+</html>

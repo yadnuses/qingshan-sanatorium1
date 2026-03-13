@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>服务项目 | 青山疗养院</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 20px;
+        }
+        .service-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #fafafa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .service-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .service-card p {
+            color: #666;
+            margin-bottom: 0;
+        }
+        .service-detail {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #eee;
+        }
+        .service-detail.active {
+            display: block;
+        }
+        .service-detail h4 {
+            color: #2c3e50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .service-detail p {
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+        .service-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .service-table th, .service-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .service-table th {
+            background-color: #f0f0f0;
+        }
+        .quote-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .quote-author {
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>青山疗养院</h1>
+            <span class="subtitle">QINGSHAN SANATORIUM</span>
+        </div>
+        <nav class="nav">
+            <a href="../main.html">首页</a>
+            <a href="./about.html">关于我们</a>
+            <a href="./services.html">服务项目</a>
+            <a href="./staff.html">医护团队</a>
+            <a href="./contact.html">联系方式</a>
+        </nav>
+    </header>
+    <main class="main">
+        <section class="hero">
+            <h2>我们的服务</h2>
+            <p>全方位、个性化的养老康复服务</p>
+        </section>
+        <section class="service-grid">
+            <div class="service-card" onclick="showDetail('rehab')">
+                <h3>康复理疗</h3>
+                <p>专业的物理治疗和康复训练</p>
+            </div>
+            <div class="service-card" onclick="showDetail('tcm')">
+                <h3>中医养生</h3>
+                <p>传统中医调理，强身健体</p>
+            </div>
+            <div class="service-card" onclick="showDetail('psych')">
+                <h3>心理关怀</h3>
+                <p>专业心理咨询师，关注心理健康</p>
+            </div>
+            <div class="service-card" onclick="showDetail('nutrition')">
+                <h3>营养膳食</h3>
+                <p>科学配餐，营养均衡</p>
+            </div>
+        </section>
+
+        <!-- 康复理疗详情 -->
+        <div id="rehab" class="service-detail">
+            <h3>康复理疗 · 专业的物理治疗和康复训练</h3>
+            <p><strong>从机能恢复到生活重建</strong></p>
+            <p>青山疗养院康复中心配备800㎡专业训练大厅，引进德国MTS运动康复系统、美国BTE工作模拟评估仪、挪威Redcord悬吊训练系统等国际先进设备。康复团队由5名副主任级康复治疗师领衔，平均从业年限15年，擅长神经康复、骨科术后康复、心肺功能重建三大领域。</p>
+
+            <h4>特色康复项目</h4>
+            <table class="service-table">
+                <tr>
+                    <th>项目</th>
+                    <th>适用人群</th>
+                    <th>核心方法</th>
+                </tr>
+                <tr>
+                    <td>神经重塑训练</td>
+                    <td>脑卒中后遗症、帕金森患者</td>
+                    <td>机器人辅助步态训练+镜像疗法</td>
+                </tr>
+                <tr>
+                    <td>骨科快速康复</td>
+                    <td>关节置换术后、骨折术后</td>
+                    <td>冷疗加压+CPM持续被动活动</td>
+                </tr>
+                <tr>
+                    <td>心肺功能重建</td>
+                    <td>心梗术后、COPD患者</td>
+                    <td>六分钟步行测试指导下的有氧阶梯训练</td>
+                </tr>
+                <tr>
+                    <td>日常生活重建</td>
+                    <td>高龄衰弱、长期卧床者</td>
+                    <td>模拟厨房、浴室的ADL训练室</td>
+                </tr>
+            </table>
+
+            <p>每位入住者入院72小时内完成ICF国际功能评估，制定周目标-月计划-季度评估的动态康复路径。康复大厅每日开放12小时（早6点至晚6点），家属可预约参与训练观摩。</p>
+
+            <div class="quote-box">
+                <p>"我妈从坐轮椅到能自己走到餐厅，用了六周。这里的康复师比我们还相信她能行。"</p>
+                <p class="quote-author">——家属王女士，2025年3月</p>
+            </div>
+        </div>
+
+        <!-- 中医养生详情 -->
+        <div id="tcm" class="service-detail">
+            <h3>中医养生 · 传统中医调理，强身健体</h3>
+            <p><strong>治未病，调阴阳，养天年</strong></p>
+            <p>青山疗养院中医馆由省级名老中医周青山先生（已退休返聘）担任顾问，现有3名中医主治医师、5名针灸推拿师常驻坐诊。馆内设传统诊疗区、现代理疗区、药膳调理区三大功能空间，年接诊量逾8000人次。</p>
+
+            <h4>核心服务项目</h4>
+            <p><strong>体质辨识与调理：</strong>采用中医体质辨识仪（舌诊+脉诊+问诊），九种体质分型，定制膏方、茶饮、药膳</p>
+            <p><strong>针灸推拿：</strong>毫针、艾灸、拔罐、刮痧、小儿推拿（针对老年常见病痛）</p>
+            <p><strong>特色疗法：</strong>督脉灸（冬病夏治）、耳穴压豆（失眠调理）、中药熏蒸（风湿痹症）</p>
+            <p><strong>节气养生：</strong>二十四节气养生讲座、应季药膳配送、八段锦/太极拳晨课</p>
+
+            <h4>独家秘方</h4>
+            <p>"青山安神方"——针对入住者常见的入睡困难、易醒多梦，由周老先生根据三十年临床经验调配，以酸枣仁、柏子仁为主料，辅以本院后山自种薄荷、薰衣草，制成安神香囊与睡前茶饮，有效率达87.3%（内部随访数据）。</p>
+
+            <p>中医馆与康复中心建立联合会诊机制，对中风后遗症患者采用"西医康复训练+中医针灸促醒"双轨方案，平均住院周期缩短23%。</p>
+        </div>
+
+        <!-- 心理关怀详情 -->
+        <div id="psych" class="service-detail">
+            <h3>心理关怀 · 专业心理咨询师，关注心理健康</h3>
+            <p><strong>看见情绪，疗愈心灵</strong></p>
+            <p>青山疗养院是省内首批设立独立心理科的养老机构，心理关怀中心设个体咨询室3间、团体活动室1间、家庭治疗室1间，配备标准沙盘、生物反馈仪、VR情绪调节系统。全职心理咨询师4名（2名二级心理咨询师、2名临床心理学硕士），实行7×12小时轮值制。</p>
+
+            <h4>三级心理防护体系</h4>
+            <table class="service-table">
+                <tr>
+                    <th>层级</th>
+                    <th>对象</th>
+                    <th>干预方式</th>
+                </tr>
+                <tr>
+                    <td>一级预防</td>
+                    <td>全体入住者</td>
+                    <td>入院心理评估（SCL-90、GDS抑郁量表）、每月心理健康讲座</td>
+                </tr>
+                <tr>
+                    <td>二级预警</td>
+                    <td>筛查出的高风险者</td>
+                    <td>每周个体咨询、建立心理档案、家属沟通会</td>
+                </tr>
+                <tr>
+                    <td>三级干预</td>
+                    <td>确诊焦虑/抑郁/认知障碍者</td>
+                    <td>药物+心理联合治疗、危机干预、转介绿色通道</td>
+                </tr>
+            </table>
+
+            <h4>特色项目</h4>
+            <p><strong>人生回顾疗法：</strong>引导高龄入住者整理生命故事，制作口述史影像</p>
+            <p><strong>丧偶/丧亲支持小组：</strong>每月2次，由同经历者互助+咨询师带领</p>
+            <p><strong>家属心理课堂：</strong>教授"如何与认知症父母沟通"、"照顾者 burnout 预防"</p>
+            <p><strong>临终心理陪伴：</strong>安宁疗护团队中的心灵关怀师，提供存在主义层面的支持</p>
+
+            <p><strong>隐私保护承诺：</strong>所有心理咨询记录独立于医疗档案，未经本人同意不向家属透露细节（涉及安全风险除外）。</p>
+
+            <div class="quote-box">
+                <p>"我以为来这里是等死，没想到把这辈子没说完的话都说出来了。"</p>
+                <p class="quote-author">——入住者陈爷爷，88岁，参与人生回顾项目后</p>
+            </div>
+        </div>
+
+        <!-- 营养膳食详情 -->
+        <div id="nutrition" class="service-detail">
+            <h3>营养膳食 · 科学配餐，营养均衡</h3>
+            <p><strong>吃得对，是疗愈的第一步</strong></p>
+            <p>青山疗养院膳食中心由注册营养师2名、高级厨师5名、面点师2名组成团队，每日供应三餐两点（早、中、晚餐+上午茶点、下午茶点）。中央厨房通过HACCP食品安全体系认证，食材溯源系统直连本地有机农场与大型商超，留样48小时。</p>
+
+            <h4>个性化膳食方案</h4>
+            <table class="service-table">
+                <tr>
+                    <th>类型</th>
+                    <th>适用人群</th>
+                    <th>特点</th>
+                </tr>
+                <tr>
+                    <td>基础营养餐</td>
+                    <td>一般入住者</td>
+                    <td>低盐低糖低脂，每日25种以上食材，周菜谱不重样</td>
+                </tr>
+                <tr>
+                    <td>疾病治疗餐</td>
+                    <td>糖尿病、肾病、痛风患者</td>
+                    <td>精确计算碳水化合物/蛋白质/嘌呤含量，分餐制</td>
+                </tr>
+                <tr>
+                    <td>吞咽障碍餐</td>
+                    <td>中风后吞咽困难者</td>
+                    <td>国际IDDSI分级标准，泥状、碎状、软食分级</td>
+                </tr>
+                <tr>
+                    <td>宗教/民族餐</td>
+                    <td>回民、素食者</td>
+                    <td>独立厨房操作，清真认证、纯植物性食材</td>
+                </tr>
+                <tr>
+                    <td>节气养生餐</td>
+                    <td>全体可选</td>
+                    <td>中医科联合研发，立春吃芽、夏至吃面、冬至进补</td>
+                </tr>
+            </table>
+
+            <h4>特色服务</h4>
+            <p><strong>营养可视化：</strong>每道菜标注热量、蛋白质、钠含量，扫码查看详细营养成分</p>
+            <p><strong>家属共餐制：</strong>每月8日、18日、28日为"家庭开放日"，家属可预约付费共餐</p>
+            <p><strong>生日定制餐：</strong>入住者生日当天，厨房根据其年轻时家乡口味定制怀旧菜肴</p>
+            <p><strong>"最后一口"尊严餐：</strong>安宁疗护阶段，尊重患者最后想吃的食物心愿（在安全前提下）</p>
+
+            <p><strong>后山菜园计划：</strong>院区后山开辟2000㎡有机菜地，由入住者认领种植，产出的蔬菜直供食堂。参与种植的入住者，其抑郁量表评分平均下降15%（2024年内部研究数据）。</p>
+
+            <div class="quote-box">
+                <p>"这里的饭不像医院饭，像家里过年。"</p>
+                <p class="quote-author">——入住者李奶奶，每周最期待周五的"怀旧红烧肉"</p>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>© 1998 YADNUS 版权所有</p>
+    </footer>
+    <script>
+        function showDetail(id) {
+            // 隐藏所有详情
+            var details = document.querySelectorAll('.service-detail');
+            for (var i = 0; i < details.length; i++) {
+                details[i].classList.remove('active');
+            }
+            // 显示选中的详情
+            var selected = document.getElementById(id);
+            if (selected) {
+                selected.classList.add('active');
+                // 滚动到详情区域
+                selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+</body>
+</html>

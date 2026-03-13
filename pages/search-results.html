@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索结果 | 青山疗养院</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/secret.css">
+</head>
+<body class="secret-page">
+    <div class="container">
+        <div class="secret-header">
+            <h1>搜索结果</h1>
+        </div>
+        <div class="secret-content" id="resultContent">
+            <!-- 搜索结果将在这里显示 -->
+        </div>
+        <a href="../main.html" class="back-btn">返回首页</a>
+    </div>
+    <script src="../js/md5.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        function displayResult() {
+            var keyword = sessionStorage.getItem('searchKeyword');
+            var hash = sessionStorage.getItem('searchHash');
+            var result = KeywordSearch.getResult(hash);
+
+            var content = document.getElementById('resultContent');
+            if (result) {
+                var linksHtml = '';
+                for (var i = 0; i < result.links.length; i++) {
+                    var link = result.links[i];
+                    var url = link.url;
+                    linksHtml += '<p><a href="' + url + '">' + link.title + '</a></p>';
+                }
+                content.innerHTML = '<h2>搜索：' + keyword + '</h2>' +
+                    '<p>' + result.content + '</p>' +
+                    '<h3>相关页面：</h3>' + linksHtml;
+            } else {
+                content.innerHTML = '<h2>搜索：' + keyword + '</h2>' +
+                    '<p>未找到相关内容，请尝试其他关键词。</p>' +
+                    '<p>提示：可尝试搜索"林国栋"、"陈护士"等</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (AppState.isLoaded) {
+                displayResult();
+            } else {
+                var checkInterval = setInterval(function() {
+                    if (AppState.isLoaded) {
+                        clearInterval(checkInterval);
+                        displayResult();
+                    }
+                }, 100);
+                setTimeout(function() {
+                    clearInterval(checkInterval);
+                    if (!AppState.isLoaded) {
+                        document.getElementById('resultContent').innerHTML =
+                            '<h2>加载失败</h2><p>关键词配置加载失败，请刷新页面重试。</p>';
+                    }
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

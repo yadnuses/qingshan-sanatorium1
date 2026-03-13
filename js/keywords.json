@@ -1,0 +1,235 @@
+{
+  "v1_0": {
+    "hashes": {
+      "jLNsdOeGu8tVjnIVk2q3ag==": {
+        "links": [{"url": "secret/layer1/secret-qingshan-city.html", "title": "百度百科-青山市"}],
+        "isSecret": false,
+        "content": "青山市概况。历史悠久的沿海城市，南青山海拔1121米，青山列岛由52个岛屿组成。"
+      },
+      "BXA49J1/EE4inGyDCk/fSw==": {
+        "links": [{"url": "secret/layer1/secret-01.html", "title": "青山疗养院首页"}],
+        "isSecret": false,
+        "content": "青山疗养院官方资料页面。成立于1985年，是一家集养老、康复、疗养为一体的高端医疗机构。"
+      },
+      "j6y/9jLIYb9K2sC/LkEjxw==": {
+        "links": [{"url": "secret/layer1/secret-02.html", "title": "院长致辞"}],
+        "isSecret": false,
+        "content": "院长林国栋的致辞。从事医疗工作30年，但照片看起来只有50岁左右。"
+      },
+      "E8N5GFbCBsWPQiNMfjjeJQ==": {
+        "links": [{"url": "secret/layer1/secret-04.html", "title": "员工风采-护理团队"}],
+        "isSecret": false,
+        "content": "护理团队介绍。"
+      },
+      "DZvFf4kVN4EYdHebI42LKg==": {
+        "links": [
+          {"url": "secret/layer2/secret-09.html", "title": "陈婉档案-基础信息"},
+          {"url": "secret/layer2/secret-09b.html", "title": "陈婉档案-工作表现"}
+        ],
+        "isSecret": true,
+        "content": ""
+      },
+      "IwJvHDYu6j4YrDeiZv9+dA==": {
+        "links": [{"url": "secret/layer2/secret-10.html", "title": "夜班记录-3月1日"}],
+        "isSecret": true,
+        "content": ""
+      },
+      "ETPXyee+x07v2DMv6w2KMA==": {
+        "links": [{"url": "secret/layer2/secret-15.html", "title": "员工档案-老张"}],
+        "isSecret": true,
+        "content": "门卫老张的员工档案。提到地下三层禁止入内，似乎知道些什么。"
+      },
+      "77SKKcMZfJXheDezvLROEQ==": {
+        "links": [{"url": "secret/layer1/secret-06.html", "title": "优秀员工表彰"}],
+        "isSecret": false,
+        "content": "优秀员工表彰名单。门卫老张被评为年度优秀员工。"
+      },
+      "X2Q1LjsiLDe3AV/ndk5SIA==": {
+        "links": [{"url": "secret/layer2/secret-14.html", "title": "药房记录-红色药片"}],
+        "isSecret": true,
+        "content": "药房记录显示一种神秘的红色药片，来源不明，用途未知。"
+      },
+      "g6J6p6lr7lEpz666nIOcIw==": {
+        "links": [{"url": "secret/layer2/secret-10.html", "title": "夜班记录-3月1日"}],
+        "isSecret": true,
+        "content": "夜班记录中提到七号病房有异常情况，需要特别关注。"
+      },
+      "cq5L8JrfUYemBjUZzjQnmw==": {
+        "links": [
+          {"url": "secret/layer2/secret-12.html", "title": "夜班记录-3月5日"},
+          {"url": "secret/layer4/secret-40.html", "title": "秀兰档案"}
+        ],
+        "isSecret": true,
+        "content": "夜班记录中提到秀兰这个名字。秀兰档案：周明远的妹妹，1995年成为实验体。"
+      },
+      "TY7Vp7gASk5pLWahWhwnZQ==": {
+        "links": [{"url": "secret/layer2/secret-13.html", "title": "陈婉档案-异常记录"}],
+        "isSecret": true,
+        "content": "陈婉档案中的异常记录。提到SY系列实验，内容令人震惊。"
+      },
+      "YzOxM42N4KYxSN0F7+YR7g==": {
+        "links": [{"url": "secret/layer2/secret-15.html", "title": "员工档案-老张"}],
+        "isSecret": true,
+        "content": "七号病人的档案。身份不明，似乎是实验对象。"
+      },
+      "eST+aQqanS22346XKiWgaw==": {
+        "links": [{"url": "secret/layer2/secret-10.html", "title": "夜班记录-3月1日"}],
+        "isSecret": true,
+        "content": "夜班记录中提到周明远。这似乎是某个人的名字，与你的调查有关。"
+      },
+      "INsS7KNQFrBteUEEA8eKNg==": {
+        "links": [{"url": "secret/layer2/secret-16.html", "title": "药房记录-特殊药品"}],
+        "isSecret": true,
+        "content": "永生计划的相关资料。一个关于意识转移的疯狂计划。"
+      },
+      "6qcInP6c9EpF6HuIS64DfQ==": {
+        "links": [{"url": "secret/layer2/secret-18.html", "title": "药房记录-药品来源"}],
+        "isSecret": true,
+        "content": "转换舱的相关记录。用于意识转移实验的核心设备。"
+      },
+      "h64aLB1rwmtFFTHnqG2Ppg==": {
+        "links": [{"url": "secret/layer2/secret-17.html", "title": "门卫日志-3月10日"}],
+        "isSecret": true,
+        "content": "门卫日志中提到会长。长生会的最高领导者，身份神秘。"
+      },
+      "sF4PrtB+vxCRhd2n8K5Q5g==": {
+        "links": [{"url": "secret/layer2/secret-19.html", "title": "门卫日志-3月15日"}],
+        "isSecret": true,
+        "content": "门卫日志中提到炉鼎。似乎是某种实验的代号。"
+      },
+      "64iguVS0qbeWBp0mWjSczw==": {
+        "links": [{"url": "secret/layer4/secret-34.html", "title": "实验体档案-03号"}],
+        "isSecret": true,
+        "content": "发现张德贵的档案。老张的真实身份，似乎与实验有关。"
+      },
+      "bumB32lTpn4UlQ8WLXi+cQ==": {
+        "links": [{"url": "secret/layer3/secret-28.html", "title": "炉鼎计划-技术文档（上）"}],
+        "isSecret": true,
+        "content": "意识复制技术的详细文档。揭示了实验的核心原理。"
+      },
+      "0sABmpW5B9AIsxBqUMAyvg==": {
+        "links": [{"url": "secret/layer4/secret-35.html", "title": "林国栋真实身份（上）"}],
+        "isSecret": true,
+        "content": "林国栋的真实身份。他竟然是..."
+      },
+      "SUeqQ4Yw6tHaFdgnchZywA==": {
+        "links": [{"url": "secret/layer4/secret-36.html", "title": "陈婷档案"}],
+        "isSecret": true,
+        "content": "陈婷的档案。陈婉的姐姐，似乎卷入了这场阴谋。"
+      },
+      "C7X6LnvZbHeuQ2/zUuNmTQ==": {
+        "links": [{"url": "secret/layer5/secret-41.html", "title": "系统日志-玩家身份（上）"}],
+        "isSecret": true,
+        "content": "系统日志揭示了玩家的真实身份。你究竟是谁？"
+      },
+      "TAERPnLnxqyYKCxBgraFbA==": {
+        "links": [{"url": "secret/layer6/secret-46.html", "title": "结局A - 自我删除"}],
+        "isSecret": true,
+        "content": "选择自我删除，结束这一切。"
+      },
+      "pIMMyWSjoiGmsZ5kTViNMg==": {
+        "links": [{"url": "secret/layer6/secret-47.html", "title": "结局B - 反击"}],
+        "isSecret": true,
+        "content": "选择反击，对抗这个系统。"
+      },
+      "GbXPNAS+smbEH96AT1ui/Q==": {
+        "links": [{"url": "secret/layer6/secret-48.html", "title": "结局C - 逃离"}],
+        "isSecret": true,
+        "content": "选择逃离，离开这个地方。"
+      },
+      "9v7x8JpBO3vgt7Jg7ZVBpQ==": {
+        "links": [{"url": "secret/layer6/secret-50.html", "title": "真结局 - 觉醒"}],
+        "isSecret": true,
+        "content": "真结局。觉醒吧，面对真相。"
+      },
+      "Qlkzq9GP3Hvs41kXvx5Dog==": {
+        "links": [{"url": "secret/layer5/secret-42.html", "title": "老张的最后记录"}],
+        "isSecret": true,
+        "content": "老张死前留下的最后记录，揭露了林永生的秘密和玩家的真实身份。"
+      },
+      "fga8AF+cmQRDoxVvRDVjhQ==": {
+        "links": [{"url": "secret/layer3/secret-21.html", "title": "地下区域平面图"}],
+        "isSecret": true,
+        "content": "地下区域平面图。包含摩斯电码和猪圈密码谜题，揭示地下三层结构。"
+      },
+      "2R8OBiCfIIAGtrrzi5ymmA==": {
+        "links": [{"url": "secret/layer3/secret-22.html", "title": "长生会-组织架构"}],
+        "isSecret": true,
+        "content": "长生会的组织架构。核心层、执行层、外围成员的层级关系。"
+      },
+      "zmla9R8vS0gj5WuDxJ8zCw==": {
+        "links": [{"url": "secret/layer3/secret-23.html", "title": "地下三层-解密区域"}],
+        "isSecret": true,
+        "content": "地下三层解密区域。隐藏房间和秘密通道的位置。"
+      },
+      "+Mx/MR16zd3dINOHfP//ig==": {
+        "links": [{"url": "secret/layer3/secret-24.html", "title": "长生会-核心成员"}],
+        "isSecret": true,
+        "content": "长生会核心成员名单。林永生是创始人，老张（张德贵）是早期成员。"
+      },
+      "8erYspReHtbOeKuIE6mqYA==": {
+        "links": [{"url": "secret/layer3/secret-25.html", "title": "电梯使用记录"}],
+        "isSecret": true,
+        "content": "地下三层电梯使用记录。显示林永生频繁出入地下三层。"
+      },
+      "1IMbfC0OTGDkS5SXKqOqjQ==": {
+        "links": [{"url": "secret/layer3/secret-26.html", "title": "炉鼎计划-概述"}],
+        "isSecret": true,
+        "content": "炉鼎计划概述。代号REBIRTH，目标是实现人类意识的永久存续。"
+      },
+      "bK4LGVUiMJYEFRdjE9Bm4Q==": {
+        "links": [{"url": "secret/layer3/secret-27.html", "title": "地下三层-实验室入口"}],
+        "isSecret": true,
+        "content": "地下三层实验室入口。包含二进制密码锁。"
+      },
+      "PMq6p5jl286B2L10adFdmQ==": {
+        "links": [{"url": "secret/layer3/secret-29.html", "title": "实验室-转换舱记录"}],
+        "isSecret": true,
+        "content": "实验室转换舱使用记录。显示林永生多次进行意识转移。"
+      },
+      "eMSXgoiJXy6Y4hAe1KcZcA==": {
+        "links": [{"url": "secret/layer3/secret-30.html", "title": "炉鼎计划-技术文档（下）"}],
+        "isSecret": true,
+        "content": "炉鼎计划技术文档（下）。意识转移的详细技术原理。"
+      },
+      "wXO99NPq+medxDKH4UdImw==": {
+        "links": [{"url": "secret/layer3/secret-32.html", "title": "炉鼎计划-实验记录"}],
+        "isSecret": true,
+        "content": "炉鼎计划实验记录。历年的实验数据和失败案例。"
+      },
+      "uU+AoGAaLH6U4Fe2Mbm15w==": {
+        "links": [{"url": "secret/changshenghui.html", "title": "长生会"}],
+        "isSecret": true,
+        "content": ""
+      }
+    },
+    "aliases": {
+      "青山市": ["青山", "青丘国", "南青山"],
+      "青山疗养院": ["疗养院", "青山"],
+      "林国栋": ["院长", "林院长"],
+      "陈婉": ["陈护士", "小陈", "我"],
+      "老张": ["张德贵", "门卫"],
+      "地下三层": ["地下", "地下3层"],
+      "七号病房": ["七号", "7号病房"],
+      "七号病人": ["七号", "7号病人", "周明远"],
+      "永生计划": ["永生", "计划"],
+      "意识复制": ["意识", "复制"],
+      "周明远": ["七号病人", "07号", "七號病人"],
+      "林永生": ["真正的院长", "会长", "林会长"],
+      "炉鼎计划-概述": ["炉鼎计划", "REBIRTH", "实验", "手术"],
+      "秀兰": ["周秀兰", "妹妹", "周明远妹妹"],
+      "老张的最后记录": ["老张遗言", "最后记录"],
+      "我是谁": ["真实身份", "我的身份"],
+      "地下区域平面图": ["平面图", "地下结构"],
+      "长生会-组织架构": ["组织架构", "长生会结构"],
+      "地下三层-解密区域": ["解密区域", "隐藏房间"],
+      "长生会-核心成员": ["核心成员", "长生会成员"],
+      "电梯使用记录": ["电梯记录", "电梯"],
+      "地下三层-实验室入口": ["实验室入口", "入口"],
+      "实验室-转换舱记录": ["转换舱", "转换记录"],
+      "炉鼎计划-技术文档（下）": ["技术文档下", "技术文档"],
+      "炉鼎计划-实验记录": ["实验记录"],
+      "觉醒": ["隐藏结局", "真结局"]
+    }
+  }
+}
