@@ -8,100 +8,289 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: "Microsoft YaHei", "SimHei", sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: "SimSun", "宋体", "Microsoft YaHei", sans-serif;
+            background: #0a0a0a;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #eee;
-            padding: 20px;
+            color: #ccc;
+            padding: 40px 20px;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.9),
+                    rgba(0, 0, 0, 0.9) 2px,
+                    rgba(20, 0, 0, 0.3) 2px,
+                    rgba(20, 0, 0, 0.3) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+        .blood-splatter {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(139, 0, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: bloodPulse 4s ease-in-out infinite;
+        }
+        .blood-splatter:nth-child(1) {
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        .blood-splatter:nth-child(2) {
+            bottom: -150px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            animation-delay: 2s;
+        }
+        @keyframes bloodPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
         }
         .container {
             max-width: 800px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #444;
-            border-radius: 10px;
+            margin: 0 auto;
+            background: rgba(10, 5, 5, 0.95);
+            border: 1px solid #3a1a1a;
             padding: 40px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                0 0 50px rgba(139, 0, 0, 0.2),
+                inset 0 0 100px rgba(0, 0, 0, 0.5);
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            pointer-events: none;
         }
         h1 {
             text-align: center;
-            color: #e74c3c;
+            color: #8b0000;
             margin-bottom: 30px;
-            font-size: 28px;
-            text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+            font-size: 26px;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 10px rgba(139, 0, 0, 0.8),
+                0 0 30px rgba(139, 0, 0, 0.4);
+            animation: titleFlicker 3s ease-in-out infinite;
+        }
+        @keyframes titleFlicker {
+            0%, 90%, 100% { opacity: 1; }
+            92% { opacity: 0.3; }
+            94% { opacity: 1; }
+            96% { opacity: 0.5; }
         }
         .warning {
-            background: rgba(231, 76, 60, 0.2);
-            border-left: 4px solid #e74c3c;
+            background: rgba(139, 0, 0, 0.1);
+            border: 1px solid #5a1a1a;
+            border-left: 3px solid #8b0000;
             padding: 15px;
             margin-bottom: 30px;
-            border-radius: 0 5px 5px 0;
+            position: relative;
         }
-        .warning-title { color: #e74c3c; font-weight: bold; margin-bottom: 10px; }
-        .content { line-height: 1.8; margin-bottom: 20px; }
-        .content p { margin-bottom: 15px; text-indent: 2em; }
-        .highlight { color: #f39c12; font-weight: bold; }
+        .warning::before {
+            content: '▲';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #0a0a0a;
+            color: #8b0000;
+            padding: 0 10px;
+            font-size: 12px;
+        }
+        .warning-title {
+            color: #a52a2a;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 13px;
+            letter-spacing: 3px;
+        }
+        .content {
+            line-height: 2;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+        .highlight {
+            color: #cd5c5c;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(205, 92, 92, 0.3);
+        }
+        .diary-quote {
+            color: #666;
+            font-style: italic;
+            margin: 20px 30px;
+            padding: 15px 20px;
+            border-left: 2px solid #3a1a1a;
+            background: rgba(0, 0, 0, 0.3);
+            font-size: 13px;
+            line-height: 2;
+        }
+        .final-line {
+            text-align: center;
+            color: #8b0000;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 30px;
+            letter-spacing: 5px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(139, 0, 0, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(139, 0, 0, 0.8); }
+        }
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        }
+        .game-info {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #2a1a1a;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .game-info-title {
+            color: #5a4a4a;
+            font-size: 12px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+        .game-info-content {
+            color: #777;
+            font-size: 13px;
+            line-height: 2;
+        }
+        .game-info-content span {
+            color: #8b0000;
+            margin-right: 8px;
+        }
         .start-btn {
             display: block;
-            width: 200px;
-            margin: 30px auto 0;
+            width: 220px;
+            margin: 40px auto 0;
             padding: 15px 30px;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
+            background: #8b0000;
+            color: #fff;
             text-align: center;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 5px;
+            border: 2px solid #ff0000;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s;
-            border: none;
-            cursor: pointer;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+            animation: btnPulse 2s ease-in-out infinite;
+        }
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.2), transparent);
+            transition: left 0.5s;
         }
         .start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+            background: #ff0000;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+            letter-spacing: 8px;
+        }
+        .start-btn:hover::before {
+            left: 100%;
         }
         .footer {
             text-align: center;
-            margin-top: 30px;
-            color: #666;
-            font-size: 12px;
+            margin-top: 40px;
+            color: #333;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+        .scratch {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .scratch:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #fff, transparent);
+            transform: rotate(15deg);
+        }
+        .scratch:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            width: 1px;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, #fff, transparent);
+            transform: rotate(-10deg);
         }
     </style>
 </head>
 <body>
+    <div class="blood-splatter"></div>
+    <div class="blood-splatter"></div>
+    <div class="scratch"></div>
+    <div class="scratch"></div>
+
     <div class="container">
-        <h1>⚠️ 调查员须知</h1>
+        <h1>调 查 员 须 知</h1>
+
         <div class="warning">
-            <div class="warning-title">【警告】</div>
-            <div>以下内容包含未公开的敏感信息，请确保您有权限查看。未经授权的传播将被追究法律责任。</div>
+            <div class="warning-title">警告</div>
+            <div style="color: #888; font-size: 13px;">以下内容包含未公开的敏感信息，请确保您有权限查看。未经授权的传播将被追究法律责任。</div>
         </div>
+
         <div class="content">
             <p>你叫<span class="highlight">周明远</span>，是一名调查记者。</p>
+
             <p>三个月前，你的妹妹在<span class="highlight">青山疗养院</span>离奇失踪。警方调查无果，院方坚称"从未有过此人"。但你找到了妹妹的日记，里面记录着令人不安的内容：</p>
-            <p style="color: #aaa; font-style: italic; margin-left: 20px;">
+
+            <div class="diary-quote">
                 "地下三层有东西，他们在做实验..."<br>
                 "林院长不是人，他已经活了很久..."<br>
                 "陈护士知道真相，但她不敢说出来..."
-            </p>
+            </div>
+
             <p>你决定亲自调查这座位于城郊的疗养院。然而，当你踏入大门的那一刻，某种诡异的感觉笼罩了你——</p>
-            <p style="text-align: center; color: #e74c3c; font-weight: bold; font-size: 18px;">
+
+            <div class="final-line">
                 这里的一切，仿佛都在等待你的到来。
-            </p>
-        </div>
-        <div class="warning">
-            <div class="warning-title">【游戏说明】</div>
-            <div>
-                • 在搜索框输入关键词，解锁相关页面<br>
-                • 页面中隐藏着新的关键词线索<br>
-                • 收集关键词，拼凑真相<br>
-                • 部分页面需要密码解锁<br>
-                • 建议佩戴耳机，注意细节
             </div>
         </div>
-        <a href="main.html" class="start-btn">开始调查</a>
+
+        <div class="game-info">
+            <div class="game-info-title">游戏说明</div>
+            <div class="game-info-content">
+                <span>◆</span>在搜索框输入关键词，解锁相关页面<br>
+                <span>◆</span>页面中隐藏着新的关键词线索<br>
+                <span>◆</span>收集关键词，拼凑真相<br>
+                <span>◆</span>部分页面需要密码解锁
+            </div>
+        </div>
+
+        <a href="main.html" class="start-btn">开 始 调 查</a>
+
         <div class="footer">© 1998 YADNUS | 本游戏纯属虚构</div>
     </div>
 </body>

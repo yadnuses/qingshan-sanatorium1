@@ -24,7 +24,8 @@
       "DZvFf4kVN4EYdHebI42LKg==": {
         "links": [
           {"url": "secret/layer2/secret-09.html", "title": "陈婉档案-基础信息"},
-          {"url": "secret/layer2/secret-09b.html", "title": "陈婉档案-工作表现"}
+          {"url": "secret/layer2/secret-09b.html", "title": "陈婉档案-工作表现"},
+          {"url": "secret/layer2/secret-13.html", "title": "陈婉档案-异常记录"}
         ],
         "isSecret": true,
         "content": ""
@@ -40,9 +41,9 @@
         "content": "门卫老张的员工档案。提到地下三层禁止入内，似乎知道些什么。"
       },
       "77SKKcMZfJXheDezvLROEQ==": {
-        "links": [{"url": "secret/layer1/secret-06.html", "title": "优秀员工表彰"}],
-        "isSecret": false,
-        "content": "优秀员工表彰名单。门卫老张被评为年度优秀员工。"
+        "links": [{"url": "secret/forbidden.html", "title": "⚠️ 禁止访问"}],
+        "isSecret": true,
+        "content": "访问被拒绝。该行为已被记录。"
       },
       "X2Q1LjsiLDe3AV/ndk5SIA==": {
         "links": [{"url": "secret/layer2/secret-14.html", "title": "药房记录-红色药片"}],
@@ -201,6 +202,21 @@
         "links": [{"url": "secret/changshenghui.html", "title": "长生会"}],
         "isSecret": true,
         "content": ""
+      },
+      "yaIqJkqZnIQEa+lOS/3hSQ==": {
+        "links": [{"url": "secret/layer2/secret-10.html", "title": "夜班记录-3月1日"}],
+        "isSecret": true,
+        "content": "07号病人的档案记录。"
+      },
+      "OSr5h3Dg1N/plEcBVo7Ddg==": {
+        "links": [{"url": "secret/layer3/secret-23.html", "title": "地下三层-解密区域"}],
+        "isSecret": true,
+        "content": "地下三层解密区域。隐藏房间和秘密通道的位置。"
+      },
+      "jHb+jy19uglZgc7jwEBVvw==": {
+        "links": [{"url": "secret/layer3/secret-23.html", "title": "地下三层-解密区域"}],
+        "isSecret": true,
+        "content": "地下三层解密区域。隐藏房间和秘密通道的位置。"
       }
     },
     "aliases": {
@@ -211,7 +227,7 @@
       "老张": ["张德贵", "门卫"],
       "地下三层": ["地下", "地下3层"],
       "七号病房": ["七号", "7号病房"],
-      "七号病人": ["七号", "7号病人", "周明远"],
+      "七号病人": ["七号", "7号病人", "周明远", "07号病人"],
       "永生计划": ["永生", "计划"],
       "意识复制": ["意识", "复制"],
       "周明远": ["七号病人", "07号", "七號病人"],
