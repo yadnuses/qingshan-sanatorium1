@@ -119,7 +119,7 @@
         "content": "陈婷的档案。陈婉的姐姐，似乎卷入了这场阴谋。"
       },
       "C7X6LnvZbHeuQ2/zUuNmTQ==": {
-        "links": [{"url": "secret/layer5/secret-41.html", "title": "系统日志-玩家身份（上）"}],
+        "links": [{"url": "secret/layer5/secret-41.html", "title": "系统日志-玩家身份"}],
         "isSecret": true,
         "content": "系统日志揭示了玩家的真实身份。你究竟是谁？"
       },
@@ -227,6 +227,21 @@
         "links": [{"url": "secret/layer3/secret-secret-room.html", "title": "密室"}],
         "isSecret": true,
         "content": "地下三层未标记的密室。曾囚禁实验体，墙上布满抓痕和血字。"
+      },
+      "WjBy9/xUkptBBzSUN1UPig==": {
+        "links": [{"url": "secret/layer1/secret-hangzhou.html", "title": "杭州 - 李志"}],
+        "isSecret": true,
+        "content": "隐藏彩蛋页面。开发者最喜欢的歌，复古黑胶播放器。"
+      },
+      "ada+/6sIB1VZUef5RyJN4w==": {
+        "links": [{"url": "secret/layer1/secret-hangzhou.html", "title": "杭州 - 李志"}],
+        "isSecret": true,
+        "content": "隐藏彩蛋页面。开发者最喜欢的歌，复古黑胶播放器。"
+      },
+      "ll+EpSo4d4w2jNgA8O0Qsg==": {
+        "links": [{"url": "secret/layer2/secret-duty-room.html", "title": "护士值班室"}],
+        "isSecret": true,
+        "content": "护士值班室监控记录。陈婉失踪前的最后踪迹，神秘电话记录。"
       }
     },
     "aliases": {
@@ -244,7 +259,7 @@
       "林永生": ["真正的院长", "会长", "林会长"],
       "炉鼎计划-概述": ["炉鼎计划", "REBIRTH", "实验", "手术"],
       "秀兰": ["周秀兰", "妹妹", "周明远妹妹"],
-      "老张的最后记录": ["老张遗言", "最后记录"],
+      "老张的最后记录": ["老张遗言", "最后记录", "老张的遗言"],
       "我是谁": ["真实身份", "我的身份"],
       "地下区域平面图": ["平面图", "地下结构"],
       "长生会-组织架构": ["组织架构", "长生会结构"],
@@ -255,6 +270,8 @@
       "实验室-转换舱记录": ["转换舱", "转换舱室", "转换记录"],
       "炉鼎计划-技术文档（下）": ["技术文档下", "技术文档"],
       "炉鼎计划-实验记录": ["实验记录"],
+      "实验体档案-07号（下）": ["实验体档案七号", "实验体档案7号", "档案七号"],
+      "实验体档案-03号": ["实验体档案三号", "实验体档案3号", "档案三号"],
       "觉醒": ["隐藏结局", "真结局"]
     }
   }
