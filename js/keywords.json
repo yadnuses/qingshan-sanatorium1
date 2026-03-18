@@ -217,6 +217,16 @@
         "links": [{"url": "secret/layer3/secret-23.html", "title": "地下三层-解密区域"}],
         "isSecret": true,
         "content": "地下三层解密区域。隐藏房间和秘密通道的位置。"
+      },
+      "OHB7WEr3qi5ux4MgPr/DCw==": {
+        "links": [{"url": "secret/layer2/secret-power-room.html", "title": "配电房"}],
+        "isSecret": true,
+        "content": "配电房巡检记录。地下三层用电量异常，似乎与转换舱有关。"
+      },
+      "RPo1Ckc3wiK/buTUt1FGRA==": {
+        "links": [{"url": "secret/layer3/secret-secret-room.html", "title": "密室"}],
+        "isSecret": true,
+        "content": "地下三层未标记的密室。曾囚禁实验体，墙上布满抓痕和血字。"
       }
     },
     "aliases": {
@@ -242,7 +252,7 @@
       "长生会-核心成员": ["核心成员", "长生会成员"],
       "电梯使用记录": ["电梯记录", "电梯"],
       "地下三层-实验室入口": ["实验室入口", "入口"],
-      "实验室-转换舱记录": ["转换舱", "转换记录"],
+      "实验室-转换舱记录": ["转换舱", "转换舱室", "转换记录"],
       "炉鼎计划-技术文档（下）": ["技术文档下", "技术文档"],
       "炉鼎计划-实验记录": ["实验记录"],
       "觉醒": ["隐藏结局", "真结局"]
