@@ -113,6 +113,11 @@
         "isSecret": true,
         "content": "林国栋的真实身份。他竟然是..."
       },
+      "L7UlQypC1B6WwenxBqlAeQ==": {
+        "links": [{"url": "secret/layer4/secret-37.html", "title": "林国栋真实身份（下）"}],
+        "isSecret": true,
+        "content": "身体转移实验日志。林永生多次更换身体的时间线，保险箱密码谜题。"
+      },
       "SUeqQ4Yw6tHaFdgnchZywA==": {
         "links": [{"url": "secret/layer4/secret-36.html", "title": "陈婷档案"}],
         "isSecret": true,
@@ -248,6 +253,7 @@
       "青山市": ["青山", "青丘国", "南青山"],
       "青山疗养院": ["疗养院", "青山"],
       "林国栋": ["院长", "林院长"],
+      "林国栋真实身份（下）": ["林国栋真实身份下", "真实身份下"],
       "陈婉": ["陈护士", "小陈", "我"],
       "老张": ["张德贵", "门卫"],
       "地下三层": ["地下", "地下3层"],
