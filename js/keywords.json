@@ -16,11 +16,6 @@
         "isSecret": false,
         "content": "院长林国栋的致辞。从事医疗工作30年，但照片看起来只有50岁左右。"
       },
-      "E8N5GFbCBsWPQiNMfjjeJQ==": {
-        "links": [{"url": "secret/layer1/secret-04.html", "title": "员工风采-护理团队"}],
-        "isSecret": false,
-        "content": "护理团队介绍。"
-      },
       "DZvFf4kVN4EYdHebI42LKg==": {
         "links": [
           {"url": "secret/layer2/secret-09.html", "title": "陈婉档案-基础信息"},
@@ -247,6 +242,26 @@
         "links": [{"url": "secret/layer2/secret-duty-room.html", "title": "护士值班室"}],
         "isSecret": true,
         "content": "护士值班室监控记录。陈婉失踪前的最后踪迹，神秘电话记录。"
+      },
+      "VoMnjhNgIWMcqPYEQBBfaw==": {
+        "links": [{"url": "secret/layer3/secret-31.html", "title": "实验体档案-07号（上）"}],
+        "isSecret": true,
+        "content": "周明远的绝密档案。调查记者被诊断为精神病患者，妹妹周秀兰失踪，诊断医生林国栋本人存在利益冲突。"
+      },
+      "GZM+w/9prbZ4sp2srSb/xA==": {
+        "links": [{"url": "secret/layer3/secret-31.html", "title": "实验体档案-07号（上）"}],
+        "isSecret": true,
+        "content": "周明远的绝密档案。调查记者，妹妹周秀兰失踪，诊断医生林国栋本人存在利益冲突。"
+      },
+      "BNJxF+DlLN3FrT7n3zI3ig==": {
+        "links": [{"url": "secret/layer4/secret-34.html", "title": "实验体档案-03号"}],
+        "isSecret": true,
+        "content": ""
+      },
+      "BBXWz/fOZiEh7t/c0vJ74Q==": {
+        "links": [{"url": "secret/layer4/secret-34.html", "title": "实验体档案-03号"}],
+        "isSecret": true,
+        "content": ""
       }
     },
     "aliases": {
@@ -276,8 +291,9 @@
       "实验室-转换舱记录": ["转换舱", "转换舱室", "转换记录"],
       "炉鼎计划-技术文档（下）": ["技术文档下", "技术文档"],
       "炉鼎计划-实验记录": ["实验记录"],
-      "实验体档案-07号（下）": ["实验体档案七号", "实验体档案7号", "档案七号"],
-      "实验体档案-03号": ["实验体档案三号", "实验体档案3号", "档案三号"],
+      "实验体档案-07号（上）": ["实验体档案七号", "实验体07号", "07号档案", "周明远档案", "七号档案"],
+      "实验体档案-07号（下）": ["实验体档案7号", "档案七号"],
+      "实验体档案-03号": ["实验体档案三号", "实验体档案3号", "实验体03号", "03号档案", "档案三号"],
       "觉醒": ["隐藏结局", "真结局"]
     }
   }
