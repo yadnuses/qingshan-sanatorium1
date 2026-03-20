@@ -7,6 +7,133 @@
     <title>青山疗养院 - 官方网站</title>
     <link rel="stylesheet" href="./css/style.css">
     <style>
+        /* === 字体引入 === */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap');
+
+        /* === 全局升级 === */
+        :root {
+            --primary-color: #2d5a3d;
+            --secondary-color: #4a8c63;
+            --bg-color: #f4f6f3;
+            --text-color: #2a2a2a;
+            --card-bg: #ffffff;
+            --border-color: #e0e5df;
+        }
+
+        body {
+            background-color: #eef1ec;
+            font-family: "Noto Serif SC", "STSong", "SimSun", serif;
+        }
+
+        /* === Header 优化 === */
+        .header {
+            background: linear-gradient(160deg, #1e3d2a 0%, #2d5a3d 50%, #3d7a55 100%);
+            padding: 28px 40px;
+            box-shadow: 0 2px 20px rgba(30,61,42,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo h1 {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .logo .subtitle {
+            font-size: 11px;
+            letter-spacing: 6px;
+            opacity: 0.6;
+            font-family: Georgia, serif;
+        }
+        .nav {
+            margin-top: 0;
+            gap: 4px;
+        }
+        .nav a {
+            padding: 6px 14px;
+            border-radius: 2px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0.85;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        .nav a:hover {
+            opacity: 1;
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* === Hero 优化 === */
+        .hero {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ef 100%);
+            border-radius: 4px;
+            padding: 60px 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 12px rgba(45,90,61,0.07);
+            border-top: 3px solid #2d5a3d;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '青山';
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 120px;
+            color: rgba(45,90,61,0.04);
+            font-family: "STSong", "SimSun", serif;
+            letter-spacing: -4px;
+            pointer-events: none;
+        }
+        .hero h2 {
+            font-size: 30px;
+            letter-spacing: 6px;
+            color: #1e3d2a;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .hero p {
+            color: #7a8c7e;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* === 搜索框优化 === */
+        .search-section {
+            background: #ffffff;
+            border-radius: 4px;
+            padding: 32px 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 12px rgba(45,90,61,0.06);
+        }
+        .search-box input {
+            border: 1px solid #c8d4c8;
+            border-radius: 2px;
+            font-size: 15px;
+            padding: 12px 16px;
+            background: #fafbfa;
+            color: #2a2a2a;
+            font-family: inherit;
+        }
+        .search-box input:focus {
+            border-color: #2d5a3d;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(45,90,61,0.08);
+        }
+        .search-box button {
+            background: #2d5a3d;
+            border-radius: 2px;
+            letter-spacing: 2px;
+            font-family: inherit;
+            font-size: 15px;
+        }
+        .search-box button:hover {
+            background: #1e3d2a;
+        }
+
+        /* === Feature 卡片优化 === */
         .feature-card-link {
             text-decoration: none;
             color: inherit;
@@ -17,6 +144,74 @@
         .feature-card-link .feature-card h3,
         .feature-card-link .feature-card p {
             color: var(--text-color);
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 4px;
+            padding: 30px 20px;
+            box-shadow: 0 1px 10px rgba(45,90,61,0.06);
+            border-bottom: 2px solid transparent;
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 24px rgba(45,90,61,0.12);
+            border-bottom-color: #2d5a3d;
+        }
+        .feature-card h3 {
+            font-size: 16px;
+            letter-spacing: 3px;
+            color: #1e3d2a;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: #8a9e8e;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* === 新闻优化 === */
+        .news {
+            background: #fff;
+            border-radius: 4px;
+            padding: 28px 32px;
+            box-shadow: 0 1px 10px rgba(45,90,61,0.06);
+        }
+        .news h3 {
+            font-size: 15px;
+            letter-spacing: 4px;
+            color: #1e3d2a;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #e0e8e0;
+            margin-bottom: 8px;
+        }
+        .news li {
+            padding: 11px 0;
+            border-bottom: 1px solid #f0f4f0;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            color: #4a5a4e;
+        }
+        .news .date {
+            color: #9aaa9e;
+            font-size: 12px;
+            font-family: Georgia, serif;
+            letter-spacing: 1px;
+        }
+
+        /* === Footer 优化 === */
+        .footer {
+            background: #1a2e20;
+            color: #6a7e6e;
+            padding: 28px;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* === 主内容区 === */
+        .main {
+            max-width: 1020px;
+            padding: 36px 24px;
         }
     </style>
 </head>
@@ -38,6 +233,7 @@
     </header>
     <main class="main">
         <section class="hero">
+            <img src="./images/hero-banner.png" alt="青山疗养院" style="width:100%;max-height:340px;object-fit:cover;border-radius:2px;margin-bottom:24px;display:block;">
             <h2>专业养老康复服务</h2>
             <p>成立于1985年，三十年专注老年健康管理</p>
         </section>
