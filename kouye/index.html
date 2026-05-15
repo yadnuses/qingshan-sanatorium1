@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口业</title>
+    <style>
+        @font-face {
+            font-family: '汇文明朝体';
+            src: url('./fonts/汇文明朝体.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 真实纸张纹理背景 */
+        .paper {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle 5px at 8% 18%, rgba(120, 100, 70, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 4px at 23% 34%, rgba(130, 110, 80, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 3px at 67% 12%, rgba(140, 120, 90, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 6px at 45% 78%, rgba(120, 100, 70, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 4px at 82% 56%, rgba(135, 115, 85, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 5px at 15% 89%, rgba(125, 105, 75, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 3px at 91% 23%, rgba(145, 125, 95, 0.15) 0%, transparent 100%),
+                radial-gradient(circle 5px at 38% 45%, rgba(118, 98, 68, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 4px at 72% 91%, rgba(132, 112, 82, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 6px at 52% 8%, rgba(115, 95, 65, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 3px at 95% 67%, rgba(128, 108, 78, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 5px at 5% 62%, rgba(122, 102, 72, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 4px at 78% 38%, rgba(136, 116, 86, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 3px at 42% 95%, rgba(112, 92, 62, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 5px at 88% 82%, rgba(125, 105, 75, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 4px at 18% 52%, rgba(140, 120, 90, 0.16) 0%, transparent 100%),
+                radial-gradient(circle 3px at 63% 28%, rgba(118, 98, 68, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 5px at 35% 62%, rgba(130, 110, 80, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 4px at 95% 45%, rgba(120, 100, 70, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 2px at 12% 15%, rgba(110, 90, 60, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 2px at 55% 67%, rgba(120, 100, 70, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 2px at 88% 44%, rgba(105, 85, 55, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 2px at 33% 92%, rgba(115, 95, 65, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 2px at 77% 8%, rgba(125, 105, 75, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 28% 72%, rgba(108, 88, 58, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 2px at 62% 52%, rgba(132, 112, 82, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 48% 18%, rgba(118, 98, 68, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 2px at 85% 95%, rgba(140, 120, 90, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 2px at 3% 38%, rgba(125, 105, 75, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 2px at 58% 88%, rgba(112, 92, 62, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 93% 12%, rgba(135, 115, 85, 0.19) 0%, transparent 100%),
+                radial-gradient(circle 2px at 15% 48%, rgba(120, 100, 70, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 2px at 73% 73%, rgba(128, 108, 78, 0.21) 0%, transparent 100%),
+                radial-gradient(circle 2px at 42% 35%, rgba(115, 95, 65, 0.23) 0%, transparent 100%),
+                radial-gradient(circle 2px at 98% 58%, rgba(122, 102, 72, 0.17) 0%, transparent 100%),
+                radial-gradient(circle 1px at 5% 5%, rgba(100, 80, 50, 0.35) 0%, transparent 100%),
+                radial-gradient(circle 1px at 18% 28%, rgba(115, 95, 65, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 35% 12%, rgba(105, 85, 55, 0.32) 0%, transparent 100%),
+                radial-gradient(circle 1px at 50% 50%, rgba(120, 100, 70, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 68% 35%, rgba(110, 90, 60, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 82% 18%, rgba(125, 105, 75, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 95% 82%, rgba(108, 88, 58, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 8% 75%, rgba(118, 98, 68, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 25% 58%, rgba(130, 110, 80, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 1px at 45% 85%, rgba(115, 95, 65, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 60% 5%, rgba(122, 102, 72, 0.27) 0%, transparent 100%),
+                radial-gradient(circle 1px at 75% 48%, rgba(105, 85, 55, 0.32) 0%, transparent 100%),
+                radial-gradient(circle 1px at 90% 65%, rgba(118, 98, 68, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 12% 42%, rgba(135, 115, 85, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 38% 68%, rgba(110, 90, 60, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 55% 25%, rgba(125, 105, 75, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 72% 82%, rgba(120, 100, 70, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 88% 38%, rgba(112, 92, 62, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 28% 8%, rgba(128, 108, 78, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 1px at 48% 42%, rgba(118, 98, 68, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 65% 62%, rgba(130, 110, 80, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 85% 92%, rgba(115, 95, 65, 0.27) 0%, transparent 100%),
+                radial-gradient(circle 1px at 2% 95%, rgba(122, 102, 72, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 32% 22%, rgba(108, 88, 58, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 52% 72%, rgba(125, 105, 75, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 78% 12%, rgba(118, 98, 68, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 98% 28%, rgba(132, 112, 82, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 15% 82%, rgba(110, 90, 60, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 42% 5%, rgba(120, 100, 70, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 58% 48%, rgba(128, 108, 78, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 82% 75%, rgba(115, 95, 65, 0.27) 0%, transparent 100%),
+                radial-gradient(circle 1px at 92% 8%, rgba(122, 102, 72, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 1px at 22% 95%, rgba(118, 98, 68, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 68% 18%, rgba(105, 85, 55, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 8% 58%, rgba(130, 110, 80, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 35% 78%, rgba(112, 92, 62, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 55% 38%, rgba(120, 100, 70, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 75% 58%, rgba(135, 115, 85, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 95% 48%, rgba(118, 98, 68, 0.25) 0%, transparent 100%),
+                radial-gradient(ellipse 600px 400px at 30% 40%, rgba(160, 140, 100, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 350px at 70% 60%, rgba(150, 130, 95, 0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 500px at 50% 80%, rgba(155, 135, 100, 0.04) 0%, transparent 60%),
+                repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(160, 140, 100, 0.025) 18px, rgba(160, 140, 100, 0.025) 19px),
+                repeating-linear-gradient(-45deg, transparent, transparent 22px, rgba(150, 130, 90, 0.02) 22px, rgba(150, 130, 90, 0.02) 23px),
+                repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(170, 150, 110, 0.025) 8px, rgba(170, 150, 110, 0.025) 9px),
+                repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(165, 145, 105, 0.03) 6px, rgba(165, 145, 105, 0.03) 7px),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(160, 140, 100, 0.04) 40px, rgba(160, 140, 100, 0.04) 41px),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(180, 160, 120, 0.035) 2px, rgba(180, 160, 120, 0.035) 3px),
+                radial-gradient(ellipse 200px 280px at 85% 15%, rgba(145, 115, 65, 0.1) 0%, transparent 65%),
+                radial-gradient(ellipse 300px 200px at 15% 20%, rgba(150, 120, 70, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 250px 350px at 80% 75%, rgba(140, 110, 60, 0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 400px at 50% 50%, rgba(170, 150, 100, 0.08) 0%, transparent 80%),
+                radial-gradient(ellipse at center, transparent 50%, rgba(100, 80, 50, 0.25) 100%),
+                linear-gradient(170deg, #e8dcc8 0%, #ddd0b8 30%, #e2d5bf 60%, #d8cbb2 100%);
+        }
+
+        .paper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n1)' opacity='0.05'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .paper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                linear-gradient(90deg, transparent 49.5%, rgba(0,0,0,0.03) 49.8%, rgba(255,255,255,0.02) 50.2%, transparent 50.5%),
+                linear-gradient(0deg, transparent 49.5%, rgba(0,0,0,0.02) 49.8%, rgba(255,255,255,0.015) 50.2%, transparent 50.5%),
+                linear-gradient(35deg, transparent 48%, rgba(0,0,0,0.008) 49%, rgba(255,255,255,0.005) 51%, transparent 52%),
+                linear-gradient(-25deg, transparent 47%, rgba(0,0,0,0.006) 48.5%, rgba(255,255,255,0.004) 51.5%, transparent 53%);
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            padding: 60px 40px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .quote-text {
+            font-family: "汇文明朝体", "KaiTi", "STKaiti", "楷体", serif;
+            font-size: 26px;
+            font-weight: bold;
+            color: #3a3020;
+            line-height: 2.8;
+            letter-spacing: 4px;
+        }
+
+        .quote-text .char {
+            display: inline;
+            transition: none;
+        }
+
+        .quote-text .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #3a3020;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .source {
+            font-family: "FangSong", "STFangsong", "仿宋", serif;
+            font-size: 17px;
+            color: #6a5a40;
+            margin-top: 40px;
+            letter-spacing: 3px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .source.visible {
+            opacity: 1;
+        }
+
+        .char.falling {
+            position: fixed;
+            display: inline-block;
+            will-change: transform, opacity;
+        }
+
+        .char.special {
+            position: fixed;
+            display: inline-block;
+            will-change: transform;
+        }
+
+        .title-link {
+            display: inline-block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .title-underline {
+            position: absolute;
+            bottom: -8px;
+            height: 3px;
+            background: #3a3020;
+            transition: width 0.6s ease;
+            width: 0;
+        }
+
+        .click-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "FangSong", "STFangsong", "仿宋", serif;
+            font-size: 14px;
+            color: #6a5a40;
+            opacity: 0;
+            transition: opacity 1s ease;
+            letter-spacing: 3px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .click-hint.visible {
+            opacity: 0.5;
+        }
+
+        /* 四角血浸效果 */
+        .blood-corner {
+            position: fixed;
+            width: 60vmax;
+            height: 60vmax;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(120, 20, 20, 0.55) 0%, rgba(90, 10, 10, 0.3) 35%, transparent 70%);
+            transform: scale(0);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blood-corner.tl { top: -30vmax; left: -30vmax; }
+        .blood-corner.tr { top: -30vmax; right: -30vmax; }
+        .blood-corner.bl { bottom: -30vmax; left: -30vmax; }
+        .blood-corner.br { bottom: -30vmax; right: -30vmax; }
+
+        .blood-corner.active {
+            animation: bloodSpread 8s ease-out forwards;
+        }
+
+        @keyframes bloodSpread {
+            to { transform: scale(2.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="paper"></div>
+
+    <div class="content">
+        <div class="quote-text" id="quoteText"></div>
+        <div class="source" id="source">——《受三皈五戒八戒斋文》</div>
+    </div>
+
+    <div class="click-hint" id="clickHint">点击屏幕任意处</div>
+
+    <script>
+    (function() {
+        var line1 = '我弟子某甲，從今盡形不殺、不盜、不邪婬，是身善業；';
+        var line2 = '不妄言、兩舌、不惡口、綺語，是口善業；';
+        var line3 = '不嫉妒、瞋恚、娇慢、邪見，是意善業。';
+        var text = line1 + line2 + line3;
+        var breakAt = [line1.length, line1.length + line2.length];
+
+        // "是口善業" 中的 "口" 和 "業" 在全文字符中的索引
+        // line1 长度25，line2中"是口善業"的"口"是第16字(0-indexed:15)，"業"是第18字(0-indexed:17)
+        var specialChars = {};
+        specialChars[line1.length + 15] = '口'; // 总索引 40
+        specialChars[line1.length + 17] = '業'; // 总索引 42
+
+        var container = document.getElementById('quoteText');
+        var sourceEl = document.getElementById('source');
+        var clickHint = document.getElementById('clickHint');
+        var i = 0;
+        var charSpans = [];
+        var typingDone = false;
+        var collapsed = false;
+
+        var cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        container.appendChild(cursor);
+
+        function typeNext() {
+            if (i < text.length) {
+                var span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = text[i];
+                if (specialChars.hasOwnProperty(i)) {
+                    span.dataset.special = specialChars[i];
+                }
+                container.insertBefore(span, cursor);
+                charSpans.push(span);
+                i++;
+
+                if (breakAt.indexOf(i) !== -1) {
+                    var br = document.createElement('br');
+                    container.insertBefore(br, cursor);
+                    charSpans.push(br);
+                }
+
+                var delay = '，；。、'.indexOf(text[i - 1]) !== -1 ? 200 : 80;
+                setTimeout(typeNext, delay);
+            } else {
+                setTimeout(function() {
+                    cursor.style.display = 'none';
+                    sourceEl.classList.add('visible');
+                    typingDone = true;
+                    clickHint.classList.add('visible');
+                }, 600);
+            }
+        }
+
+        setTimeout(typeNext, 1500);
+
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        function easeOutBack(t) {
+            var c1 = 1.70158;
+            var c3 = c1 + 1;
+            return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+        }
+
+        function collapse() {
+            if (!typingDone || collapsed) return;
+            collapsed = true;
+            clickHint.style.display = 'none';
+            sourceEl.style.opacity = '0';
+            sourceEl.style.transition = 'opacity 0.5s ease';
+
+            var specialSpans = [];
+            var fallingSpans = [];
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+            for (var idx = 0; idx < charSpans.length; idx++) {
+                var span = charSpans[idx];
+                if (span.tagName === 'BR') {
+                    span.style.display = 'none';
+                    continue;
+                }
+                var rect = span.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) continue;
+
+                if (span.dataset.special) {
+                    specialSpans.push({
+                        el: span,
+                        x: rect.left,
+                        y: rect.top,
+                        w: rect.width,
+                        h: rect.height,
+                        char: span.dataset.special
+                    });
+                } else {
+                    fallingSpans.push({
+                        el: span,
+                        x: rect.left,
+                        y: rect.top,
+                        w: rect.width,
+                        h: rect.height,
+                        vx: (Math.random() - 0.5) * 1.2,
+                        vy: Math.random() * 0.5,
+                        rot: 0,
+                        vRot: (Math.random() - 0.5) * 2.5,
+                        opacity: 1,
+                        delay: Math.random() * 15
+                    });
+                }
+            }
+
+            for (var f = 0; f < fallingSpans.length; f++) {
+                var item = fallingSpans[f];
+                item.el.classList.add('falling');
+                item.el.style.left = item.x + 'px';
+                item.el.style.top = item.y + 'px';
+            }
+
+            for (var s = 0; s < specialSpans.length; s++) {
+                var sp = specialSpans[s];
+                sp.el.classList.add('special');
+                sp.el.style.left = sp.x + 'px';
+                sp.el.style.top = sp.y + 'px';
+            }
+
+            var gravity = 0.25;
+            var airResistance = 0.998;
+            var frame = 0;
+            var animId;
+            var specialAnimStart = 60;
+            var specialAnimDuration = 240;
+
+            var targetX = w / 2;
+            var targetY = h / 2;
+
+            function step() {
+                frame++;
+                var allDone = true;
+
+                for (var fi = 0; fi < fallingSpans.length; fi++) {
+                    var item = fallingSpans[fi];
+                    if (frame < item.delay) {
+                        allDone = false;
+                        continue;
+                    }
+                    if (item.opacity <= 0) continue;
+
+                    item.vy += gravity;
+                    item.vx *= airResistance;
+                    item.x += item.vx;
+                    item.y += item.vy;
+                    item.rot += item.vRot;
+
+                    if (item.y > h * 0.25) {
+                        item.opacity -= 0.003;
+                        if (item.opacity < 0) item.opacity = 0;
+                    }
+
+                    if (item.opacity > 0) {
+                        allDone = false;
+                        var baseX = parseFloat(item.el.style.left);
+                        var baseY = parseFloat(item.el.style.top);
+                        item.el.style.transform = 'translate(' + (item.x - baseX) + 'px, ' + (item.y - baseY) + 'px) rotate(' + item.rot + 'deg)';
+                        item.el.style.opacity = item.opacity;
+                    } else {
+                        item.el.style.opacity = '0';
+                        item.el.style.display = 'none';
+                    }
+                }
+
+                if (frame >= specialAnimStart) {
+                    var specialProgress = Math.min(1, (frame - specialAnimStart) / specialAnimDuration);
+                    var ease = easeOutCubic(specialProgress);
+                    var easeB = easeOutBack(specialProgress);
+
+                    var startX = targetX;
+                    for (var si = 0; si < specialSpans.length; si++) {
+                        var sp = specialSpans[si];
+                        var fromX = sp.x + sp.w / 2;
+                        var fromY = sp.y + sp.h / 2;
+                        var scale = 1 + (5 - 1) * easeB;
+                        var offset = (si === 0 ? -1 : 1) * sp.w * scale * 0.55;
+                        var toX = targetX + offset;
+                        var toY = targetY;
+
+                        var nowX = fromX + (toX - fromX) * ease;
+                        var nowY = fromY + (toY - fromY) * ease;
+
+                        sp.el.style.transform = 'translate(' + (nowX - sp.x - sp.w / 2) + 'px, ' + (nowY - sp.y - sp.h / 2) + 'px) scale(' + scale + ')';
+                        sp.el.style.transformOrigin = 'center center';
+                        sp.el.style.zIndex = '10';
+                    }
+                }
+
+                if (!allDone) {
+                    animId = requestAnimationFrame(step);
+                } else {
+                    finalizeTitle(specialSpans);
+                }
+            }
+
+            animId = requestAnimationFrame(step);
+        }
+
+        function finalizeTitle(specialSpans) {
+            var link = document.createElement('a');
+            link.className = 'title-link';
+            link.href = './contentrebirth4017.html';
+
+            for (var si2 = 0; si2 < specialSpans.length; si2++) {
+                var sp2 = specialSpans[si2];
+                var rect2 = sp2.el.getBoundingClientRect();
+                sp2.el.style.left = rect2.left + 'px';
+                sp2.el.style.top = rect2.top + 'px';
+                sp2.el.style.transform = 'none';
+                link.appendChild(sp2.el);
+            }
+
+            var underline = document.createElement('div');
+            underline.className = 'title-underline';
+            link.appendChild(underline);
+
+            for (var ci = 0; ci < charSpans.length; ci++) {
+                var el = charSpans[ci];
+                if (!el || !el.parentNode) continue;
+                if (el.tagName === 'BR' || !el.dataset.special) {
+                    el.remove();
+                }
+            }
+
+            container.innerHTML = '';
+            container.appendChild(link);
+
+            link.style.display = 'inline-flex';
+            link.style.alignItems = 'center';
+            link.style.justifyContent = 'center';
+            link.style.gap = '0.05em';
+            link.style.fontSize = '130px';
+            link.style.color = '#3a3020';
+            link.style.fontFamily = '"汇文明朝体", "KaiTi", "STKaiti", "楷体", serif';
+            link.style.fontWeight = 'bold';
+            link.style.letterSpacing = '0.15em';
+            link.style.position = 'fixed';
+            link.style.top = '50%';
+            link.style.left = '50%';
+            link.style.transform = 'translate(-50%, -50%)';
+
+            for (var si3 = 0; si3 < specialSpans.length; si3++) {
+                var sp3 = specialSpans[si3];
+                sp3.el.style.position = 'static';
+                sp3.el.style.left = '';
+                sp3.el.style.top = '';
+                sp3.el.style.willChange = '';
+                sp3.el.style.zIndex = '';
+                sp3.el.style.transformOrigin = '';
+            }
+
+            requestAnimationFrame(function() {
+                var firstEl = specialSpans[0].el;
+                var lastEl = specialSpans[specialSpans.length - 1].el;
+                var linkRect = link.getBoundingClientRect();
+                var firstRect = firstEl.getBoundingClientRect();
+                var lastRect = lastEl.getBoundingClientRect();
+
+                var underlineLeft = firstRect.left - linkRect.left;
+                var underlineWidth = lastRect.right - firstRect.left;
+
+                underline.style.left = underlineLeft + 'px';
+
+                link.addEventListener('mouseenter', function() {
+                    underline.style.width = underlineWidth + 'px';
+                });
+                link.addEventListener('mouseleave', function() {
+                    underline.style.width = '0';
+                });
+            });
+
+            // 四角血浸
+            var corners = ['tl', 'tr', 'bl', 'br'];
+            for (var c = 0; c < corners.length; c++) {
+                var corner = document.createElement('div');
+                corner.className = 'blood-corner ' + corners[c];
+                document.body.appendChild(corner);
+                setTimeout(function(el) {
+                    el.classList.add('active');
+                }, c * 400, corner);
+            }
+        }
+
+        document.body.addEventListener('click', collapse);
+        document.body.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            collapse();
+        }, { once: true });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口业 · 第二章</title>
+    <style>
+        @font-face {
+            font-family: '新愚公峥嵘体';
+            src: url('./fonts/xinyugongzhengrongti.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: '特高明朝';
+            src: url('./fonts/特高明朝.ttf') format('truetype');
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .scene {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: none;
+            z-index: 1;
+        }
+
+        .scene.active {
+            display: flex;
+        }
+
+        /* ==================== 打字机 ==================== */
+        .scene-typewriter {
+            background: #0a0a0a;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .typewriter-text {
+            max-width: 700px;
+            padding: 40px;
+            font-size: 17px;
+            line-height: 2.4;
+            color: #e0ddd8;
+            letter-spacing: 1px;
+            font-family: '特高明朝', "STSong", "SimSun", serif;
+        }
+
+        .typewriter-text .char {
+            opacity: 0;
+            animation: charIn 0.05s ease forwards;
+        }
+
+        @keyframes charIn {
+            to { opacity: 1; }
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #e0ddd8;
+            vertical-align: text-bottom;
+            animation: blinkCursor 0.8s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .typewriter-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #555;
+            font-size: 13px;
+            letter-spacing: 2px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .typewriter-hint.visible {
+            opacity: 0.5;
+        }
+
+        /* 打字机场景血效果 */
+        .blood-spread {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 5s ease;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 10% 10%, rgba(100,0,0,0.6) 0%, transparent 60%),
+                radial-gradient(ellipse 70% 50% at 90% 20%, rgba(90,0,0,0.5) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 70% at 20% 90%, rgba(100,0,0,0.5) 0%, transparent 50%),
+                radial-gradient(ellipse 70% 60% at 80% 85%, rgba(90,0,0,0.6) 0%, transparent 55%);
+        }
+
+        .blood-spread.active {
+            opacity: 1;
+        }
+
+        .blood-drop {
+            position: absolute;
+            width: 3px;
+            border-radius: 0 0 50% 50%;
+            background: linear-gradient(to bottom, rgba(139,0,0,0.9), rgba(80,0,0,0.3));
+            pointer-events: none;
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .blood-drop.drop1 {
+            left: 15%; top: 0;
+            height: 30px;
+        }
+
+        .blood-drop.drop1.active {
+            animation: dropFall 4s ease-in 0.5s forwards;
+        }
+
+        .blood-drop.drop2 {
+            left: 35%; top: 0;
+            height: 45px;
+        }
+
+        .blood-drop.drop2.active {
+            animation: dropFall 5s ease-in 1.2s forwards;
+        }
+
+        .blood-drop.drop3 {
+            left: 65%; top: 0;
+            height: 25px;
+        }
+
+        .blood-drop.drop3.active {
+            animation: dropFall 3.5s ease-in 2s forwards;
+        }
+
+        .blood-drop.drop4 {
+            left: 85%; top: 0;
+            height: 40px;
+        }
+
+        .blood-drop.drop4.active {
+            animation: dropFall 4.5s ease-in 0.8s forwards;
+        }
+
+        .blood-drop.drop5 {
+            left: 50%; top: 0;
+            height: 35px;
+        }
+
+        .blood-drop.drop5.active {
+            animation: dropFall 5.5s ease-in 1.5s forwards;
+        }
+
+        @keyframes dropFall {
+            0% { opacity: 0; transform: translateY(0) scaleY(0.3); }
+            15% { opacity: 1; transform: translateY(0) scaleY(1); }
+            100% { opacity: 0.3; transform: translateY(90vh) scaleY(1.5); }
+        }
+
+        /* ==================== 论坛列表 ==================== */
+        .scene-forum-list {
+            background: #f0ece4;
+            flex-direction: column;
+        }
+
+        .forum-header {
+            height: 52px;
+            background: linear-gradient(160deg, #1e3d2a 0%, #2d5a3d 50%, #3d7a55 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 10px rgba(30,61,42,0.2);
+        }
+
+        .forum-header .logo {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        .forum-header .nav {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        .forum-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 32px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .post-item {
+            background: white;
+            border-radius: 4px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .post-item:hover {
+            transform: translateX(4px);
+            border-left-color: #2d5a3d;
+            box-shadow: 0 3px 12px rgba(45,90,61,0.1);
+        }
+
+        .post-item .post-title {
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .post-item .post-meta {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            gap: 16px;
+        }
+
+        .post-item .post-tag {
+            display: inline-block;
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 2px;
+            margin-right: 6px;
+        }
+
+        .post-tag.hot { background: #b4382a; color: white; }
+        .post-tag.tree { background: #5a8a6a; color: white; }
+        .post-tag.gossip { background: #8a7a40; color: white; }
+        .post-tag.life { background: #6a7a9a; color: white; }
+        .post-tag.academic { background: #7a5a8a; color: white; }
+        .post-tag.troll { background: #8a6a4a; color: white; }
+        .post-tag.help { background: #4a7a8a; color: white; }
+
+        /* ==================== 论坛帖子详情 ==================== */
+        .scene-forum-post {
+            background: #f0ece4;
+            flex-direction: column;
+        }
+
+        .post-detail-header {
+            height: 52px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 16px;
+        }
+
+        .post-detail-header .back {
+            font-size: 14px;
+            color: #2d5a3d;
+            cursor: pointer;
+        }
+
+        .post-detail-header .post-title-small {
+            font-size: 14px;
+            color: #1a1a1a;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post-detail-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 32px;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* 楼主 */
+        .floor-master {
+            background: white;
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+        }
+
+        .floor-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .floor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d5a3d, #4a8c63);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .floor-info .floor-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .floor-info .floor-time {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .floor-content {
+            font-size: 15px;
+            line-height: 2;
+            color: #333;
+        }
+
+        .floor-content p {
+            margin-bottom: 12px;
+        }
+
+        /* 楼层回复 */
+        .floor-reply {
+            background: white;
+            border-radius: 4px;
+            padding: 18px 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .floor-reply.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floor-reply .floor-header {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+        }
+
+        .floor-reply .floor-num {
+            font-size: 12px;
+            color: #999;
+            margin-left: auto;
+        }
+
+        .floor-reply .floor-content {
+            font-size: 14px;
+        }
+
+        .floor-reply .floor-content .quote {
+            background: #f5f5f5;
+            border-left: 3px solid #ddd;
+            padding: 8px 12px;
+            margin: 8px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* 语音播放器 */
+        .voice-player {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f7f0;
+            border: 1px solid #d0e0d0;
+            border-radius: 4px;
+            padding: 8px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .voice-player .wave {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .voice-player .wave span {
+            width: 3px;
+            background: #2d5a3d;
+            border-radius: 1px;
+        }
+
+        .voice-player .duration {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 图片占位 */
+        .img-placeholder {
+            width: 280px;
+            height: 180px;
+            background: linear-gradient(135deg, #e8e8e8 0%, #d8d8d8 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .forum-img {
+            max-width: 320px;
+            max-height: 220px;
+            border-radius: 4px;
+            margin: 8px 0;
+            display: block;
+        }
+
+        .click-hint-forum {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #888;
+            letter-spacing: 2px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 10;
+            background: rgba(255,255,255,0.9);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        .click-hint-forum.visible {
+            opacity: 0.8;
+        }
+
+        /* ==================== L崩溃：全屏谣言 ==================== */
+        .scene-rumors {
+            background: #0a0a0a;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .rumor-text {
+            position: absolute;
+            font-size: 42px;
+            font-weight: 900;
+            color: #8a1a1a;
+            text-shadow: 0 0 40px rgba(180,30,30,0.5);
+            opacity: 0;
+            transition: opacity 1s ease;
+            letter-spacing: 6px;
+            font-family: "KaiTi", "STKaiti", "楷体", serif;
+        }
+
+        .rumor-text.show {
+            opacity: 1;
+        }
+
+        .scene-rumors.shake {
+            animation: screenShake 0.15s ease-in-out;
+        }
+
+        @keyframes screenShake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-3px, 2px); }
+            50% { transform: translate(3px, -2px); }
+            75% { transform: translate(-2px, -3px); }
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <!-- 打字机场景 -->
+    <div class="scene scene-typewriter active" id="sceneTypewriter">
+        <div class="blood-spread" id="bloodSpread"></div>
+        <div class="blood-drop drop1" id="bloodDrop1"></div>
+        <div class="blood-drop drop2" id="bloodDrop2"></div>
+        <div class="blood-drop drop3" id="bloodDrop3"></div>
+        <div class="blood-drop drop4" id="bloodDrop4"></div>
+        <div class="blood-drop drop5" id="bloodDrop5"></div>
+        <div class="typewriter-text" id="typewriterText"></div>
+        <div class="typewriter-hint" id="typewriterHint">点击屏幕继续</div>
+    </div>
+
+    <!-- 论坛列表 -->
+    <div class="scene scene-forum-list" id="sceneForumList">
+        <div class="forum-header">
+            <div class="logo">青山校园论坛</div>
+            <div class="nav">首页 | 树洞 | 学术 | 生活</div>
+        </div>
+        <div class="forum-list-container" id="forumListContainer"></div>
+    </div>
+
+    <!-- 论坛帖子详情 -->
+    <div class="scene scene-forum-post" id="sceneForumPost">
+        <div class="post-detail-header">
+            <span class="back" id="postBack">&lt; 返回列表</span>
+            <span class="post-title-small" id="postTitleSmall"></span>
+        </div>
+        <div class="post-detail-body" id="postDetailBody"></div>
+        <div class="click-hint-forum" id="forumHint">点击屏幕继续</div>
+    </div>
+
+    <!-- L崩溃：全屏谣言 -->
+    <div class="scene scene-rumors" id="sceneRumors"></div>
+
+    <script>
+    // ==================== 场景管理 ====================
+    var scenes = {
+        typewriter: document.getElementById('sceneTypewriter'),
+        forumList: document.getElementById('sceneForumList'),
+        forumPost: document.getElementById('sceneForumPost'),
+        rumors: document.getElementById('sceneRumors')
+    };
+
+    function switchScene(from, to) {
+        scenes[from].classList.remove('active');
+        scenes[to].classList.add('active');
+    }
+
+    // ==================== 打字机系统 ====================
+    var typewriterText = document.getElementById('typewriterText');
+    var typewriterHint = document.getElementById('typewriterHint');
+    var typingDone = false;
+
+    function runTypewriter(text, callback) {
+        typingDone = false;
+        typewriterText.innerHTML = '';
+        typewriterHint.classList.remove('visible');
+        var i = 0;
+        var cursor = document.createElement('span');
+        cursor.className = 'typewriter-cursor';
+        typewriterText.appendChild(cursor);
+
+        function typeNext() {
+            if (i < text.length) {
+                var span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = text[i];
+                span.style.animationDelay = '0s';
+                typewriterText.insertBefore(span, cursor);
+                i++;
+                var delay = '，。'.indexOf(text[i - 1]) !== -1 ? 280 : 80;
+                setTimeout(typeNext, delay);
+            } else {
+                cursor.style.display = 'none';
+                typingDone = true;
+                typewriterHint.classList.add('visible');
+                if (callback) callback();
+            }
+        }
+
+        setTimeout(typeNext, 600);
+    }
+
+    // ==================== 论坛帖子数据 ====================
+    var forumPosts = [
+        {
+            id: 1,
+            tag: 'tree',
+            tagName: '树洞',
+            title: '水房听到的八卦，关于某文学院女生',
+            author: '匿名用户',
+            time: '10-12 14:33',
+            views: 3420,
+            replies: 16,
+            keyPost: true,
+            segmentIndex: 0,
+            master: {
+                name: '用户65302',
+                time: '10-12 14:33',
+                content: '<p>今天在水房洗衣服，隔壁隔间两个女生聊得很起劲。大意是说文学院有个女生插足了C和他前女友，C前女友是外院的，谈了一年多了。</p><p>那女生平时看着挺文静的，没想到啊。</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户13905', content: '前排吃瓜' },
+                { num: '2楼', name: '用户81426', content: '细说' },
+                { num: '3楼', name: '用户96673', content: 'C？是经管的C吗？' },
+                { num: '4楼', name: '用户65302', content: '对，就是他。' },
+                { num: '5楼', name: '用户23396', content: '那女生我知道，挺文静的，不像这种人啊' },
+                { num: '6楼', name: '用户20458', content: '知人知面不知心' },
+                { num: '7楼', name: '用户28289', content: '连L都证实了。L是谁？' },
+                { num: '8楼', name: '用户57400', content: '就是那个整天和她一起吃饭的女生啊，高中同学，考进同一所大学' },
+                { num: '9楼', name: '用户59615', content: '闺蜜亲自锤，这瓜保熟' },
+                { num: '10楼', name: '用户59823', content: '听说她为了追C，故意去蹭F教授的课，因为C在F教授实验室' },
+                { num: '11楼', name: '用户37460', content: '卧槽，这也太有心机了' },
+                { num: '12楼', name: '用户26361', content: '前排提醒，理性吃瓜，别网暴' },
+                { num: '13楼', name: '用户82357', content: '12楼别装理中客了，闺蜜都锤了还有什么好说的' },
+                { num: '14楼', name: '用户13478', content: '你们说的是不是那个经常穿灰外套的女生？' },
+                { num: '15楼', name: '用户85674', content: '对对对，就是她。灰外套，马尾辫，图书馆三楼常客' },
+                { num: '16楼', name: '用户10851', content: '三件套齐了：灰外套、马尾辫、图书馆三楼。下次见到直接避开' }
+            ]
+        },
+        {
+            id: 2,
+            tag: 'life',
+            tagName: '生活',
+            title: '宿舍楼的洗衣机又坏了，有没有人管管',
+            author: '洗不了衣服',
+            time: '10-13 09:22',
+            views: 128,
+            replies: 5,
+            master: {
+                name: '用户15695',
+                time: '10-13 09:22',
+                content: '<p>三楼的洗衣机又坏了，已经报修三天了，宿管阿姨说在等零件。</p><p>问题是零件到底在哪啊？我已经攒了一盆袜子了。</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户38657', content: '二楼也是，两台坏了一台' },
+                { num: '2楼', name: '用户46421', content: '手洗吧，就当锻炼身体了' },
+                { num: '3楼', name: '用户56566', content: '来我们楼吧，四楼还有空位' },
+                { num: '4楼', name: '用户87236', content: '已经在催了，预计明天修好' },
+                { num: '5楼', name: '用户46048', content: '这句话我上周就听过了' }
+            ]
+        },
+        {
+            id: 3,
+            tag: 'hot',
+            tagName: '爆',
+            title: 'F教授课堂上发生的那些事，有录音',
+            author: '用户84721',
+            time: '10-15 21:07',
+            views: 12890,
+            replies: 17,
+            keyPost: true,
+            segmentIndex: 1,
+            master: {
+                name: '用户84721',
+                time: '10-15 21:07',
+                content: '<p>爆个料，文学院某女生在F教授办公室帮忙整理文献时，背地里骂老师。有录音为证。</p><div class="voice-player"><div class="wave"><span style="height:8px"></span><span style="height:14px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:10px"></span><span style="height:14px"></span></div><span class="duration">4"</span></div><div style="background:#f5f5f5;padding:10px 12px;border-radius:4px;margin:8px 0;font-size:13px;color:#555;">【语音转文字】F这种老流氓也配带研究生？他摸女生手的事情谁不知道？</div><p>听清楚了吗？这就是她的原话。</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户46463', content: '有证据吗？' },
+                { num: '2楼', name: '用户84721', content: '录音在上面，自己听' },
+                { num: '3楼', name: '用户40512', content: '卧槽，这声音确实像XXX' },
+                { num: '4楼', name: '用户88907', content: 'F教授风评本来就不好，但这女生也太敢说了' },
+                { num: '5楼', name: '用户35203', content: '坐等反转' },
+                { num: '6楼', name: '用户68878', content: '反转个屁，锤死了。这声音还能有假？' },
+                { num: '7楼', name: '用户59797', content: 'F教授确实有问题，去年就有女生在树洞说过他动手动脚' },
+                { num: '8楼', name: '用户89131', content: '7楼有链接吗？' },
+                { num: '9楼', name: '用户84721', content: '链接来了，不过原帖被删了，这是截图' },
+                { num: '10楼', name: '用户22676', content: '所以这是女生替天行道？' },
+                { num: '11楼', name: '用户48427', content: '替天行道个屁，她自己喜欢C，C在F教授实验室，她是爱屋及乌' },
+                { num: '12楼', name: '用户42098', content: '11楼什么意思？' },
+                { num: '13楼', name: '用户46434', content: '意思是她骂F教授不是为了正义，是为了讨好C' },
+                { num: '14楼', name: '用户93810', content: '这也太恶心了，又当又立' },
+                { num: '15楼', name: '用户23238', content: '你们没发现吗，这女生就是水房那个小三' },
+                { num: '16楼', name: '用户30926', content: '对对对，灰外套那个！两件事连起来了' },
+                { num: '17楼', name: '用户19116', content: '细思极恐，这女的到底还有多少事' }
+            ]
+        },
+        {
+            id: 4,
+            tag: 'academic',
+            tagName: '学术',
+            title: 'F教授的文献整理课有人上过吗，求经验',
+            author: '选课困难户',
+            time: '10-16 10:05',
+            views: 67,
+            replies: 4,
+            master: {
+                name: '用户31319',
+                time: '10-16 10:05',
+                content: '<p>下学期想选F教授的文献整理与综述写作，想问问上过这门课的同学，作业量大吗？给分怎么样？</p><p>顺便问一下，听说F教授喜欢让学生去办公室帮忙整理资料，是真的吗？</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户57819', content: '作业量适中，给分看运气。整理资料的事是真的，但只挑女生。' },
+                { num: '2楼', name: '用户95181', content: '1楼细说，只挑女生是什么意思' },
+                { num: '3楼', name: '用户44671', content: '……你上了课就知道了' },
+                { num: '4楼', name: '用户21395', content: '建议换一门课，这位老师风评不太好' }
+            ]
+        },
+        {
+            id: 5,
+            tag: 'troll',
+            tagName: '吐槽',
+            title: '食堂二楼的酸辣粉为什么越来越酸了',
+            author: '酸辣粉爱好者',
+            time: '10-18 12:44',
+            views: 234,
+            replies: 6,
+            master: {
+                name: '用户58520',
+                time: '10-18 12:44',
+                content: '<p>如题。上学期还能吃，这学期酸得牙都软了。老板是不是换醋了？</p><p>每周三中午固定去吃的，现在不得不绕道去三楼了。</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户22280', content: '我也觉得！上周吃完胃疼了一下午' },
+                { num: '2楼', name: '用户47930', content: '听说老板离婚了，心情不好，手抖多放醋' },
+                { num: '3楼', name: '用户46048', content: '2楼瞎扯的吧' },
+                { num: '4楼', name: '用户57400', content: '是真的，老板确实离婚了，但不是因为手抖，是换了醋的品牌' },
+                { num: '5楼', name: '用户22156', content: '酸点好啊，开胃' },
+                { num: '6楼', name: '用户13278', content: '三楼麻辣烫不香吗，为什么要执着于酸辣粉' }
+            ]
+        },
+        {
+            id: 6,
+            tag: 'gossip',
+            tagName: '围观',
+            title: '网吧偶遇，文学院某女生深夜私会计算机系学长',
+            author: '用户84721',
+            time: '10-22 23:45',
+            views: 8920,
+            replies: 18,
+            keyPost: true,
+            segmentIndex: 2,
+            master: {
+                name: '用户84721',
+                time: '10-22 23:45',
+                content: '<p>昨晚有人给我发了张照片。文学院某女生和计算机系学长在网吧，你们品品。</p><img src="images/网吧.png" class="forum-img" alt="网吧照片">'
+            },
+            floors: [
+                { num: '1楼', name: '用户69429', content: '这不是那个谁吗？前两天还在树洞被锤' },
+                { num: '2楼', name: '用户38893', content: '小三实锤了' },
+                { num: '3楼', name: '用户20328', content: '照片是我拍的，左右确实还有别人，但那个角度只框得住他们两个。' },
+                { num: '4楼', name: '用户95181', content: '3楼在现场？详细说说' },
+                { num: '5楼', name: '用户20328', content: '我就坐在他们斜对面，那个女生身后还站了一个人，好像在自拍。' },
+                { num: '6楼', name: '用户80284', content: '身后有人自拍？这角度可以啊' },
+                { num: '7楼', name: '用户23434', content: '等等，你们说的这个女生，是不是那个骂F教授的？' },
+                { num: '8楼', name: '用户39256', content: '对对对，灰外套那个！三件事全连起来了' },
+                { num: '9楼', name: '用户38221', content: '听说她哥之前在青山疗养院出事了' },
+                { num: '10楼', name: '用户16006', content: '9楼细说' },
+                { num: '11楼', name: '用户91070', content: '她哥是个调查记者，去疗养院调查什么病历，然后就失踪了。疗养院后来还着火了。' },
+                { num: '12楼', name: '用户65392', content: '调查记者？那更可疑了，一家人都不正常' },
+                { num: '13楼', name: '用户83563', content: '12楼嘴下留情，失踪的人也可能是受害者' },
+                { num: '14楼', name: '用户14165', content: '13楼别圣母了，调查记者去那种地方，不是收钱就是搞事' },
+                { num: '15楼', name: '用户57052', content: '最新消息，公安局说她哥大概率遇难了，发现了一只烧焦的背包' },
+                { num: '16楼', name: '用户54597', content: '所以她是克兄体质？' },
+                { num: '17楼', name: '用户81482', content: '16楼过分了' },
+                { num: '18楼', name: '用户98696', content: '但说实话，哥哥刚出事，她就有心情网吧私会学长，这心理素质...' }
+            ]
+        },
+        {
+            id: 7,
+            tag: 'tree',
+            tagName: '树洞',
+            title: '表白失败了，但是……',
+            author: '匿名',
+            time: '10-25 19:30',
+            views: 89,
+            replies: 4,
+            master: {
+                name: '用户87397',
+                time: '10-25 19:30',
+                content: '<p>表白被拒绝了。对方说"你是个好人"。</p><p>但重点不是这个。重点是拒绝我的时候，他的手机一直在震动，他看了三次屏幕，每次都在笑。</p><p>我想知道那个让他笑的人是谁。</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户64987', content: '抱抱，好人卡至少说明你不讨厌' },
+                { num: '2楼', name: '用户92397', content: '有没有可能，他本来就有对象，只是没告诉你' },
+                { num: '3楼', name: '用户30379', content: '2楼太狠了' },
+                { num: '4楼', name: '用户39871', content: '过来人建议：别想知道那个人是谁，知道了更难受' }
+            ]
+        },
+        {
+            id: 8,
+            tag: 'help',
+            tagName: '求助',
+            title: '后山探险小队招募，这周日晚',
+            author: '探险队长',
+            time: '10-28 11:15',
+            views: 156,
+            replies: 5,
+            master: {
+                name: '用户54118',
+                time: '10-28 11:15',
+                content: '<p>准备组个后山探险小队，目标逐日塔。传闻塔里有上世纪留下的无线电设备，想进去看看。</p><p>目前已有三人，缺两个。要求：体力好，不怕黑，自带手电筒。</p><p>有兴趣的私信我。</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户24592', content: '逐日塔不是废弃了吗，能进去？' },
+                { num: '2楼', name: '用户54118', content: '能，后山有条小路，我探过了' },
+                { num: '3楼', name: '用户21395', content: '那地方不太吉利，建议别去' },
+                { num: '4楼', name: '用户95181', content: '3楼细说，怎么不吉利了' },
+                { num: '5楼', name: '用户55082', content: '老一辈说逐日塔以前是观测站，后来出了事就废弃了。具体什么事，没人说得清。' }
+            ]
+        },
+        {
+            id: 9,
+            tag: 'tree',
+            tagName: '深夜',
+            title: '后山逐日塔又亮了，有人看到吗？',
+            keyPost: true,
+            segmentIndex: 3,
+            author: '用户36062',
+            time: '11-06 00:17',
+            views: 456,
+            replies: 3,
+            master: {
+                name: '用户36062',
+                time: '11-06 00:17',
+                content: '<p>刚才从图书馆回来，路过操场，看到后山逐日塔顶上有光。不是暖黄色，是一种青白色的，很冷的色调。</p><p>我眨了眨眼，塔楼又黑了。可能是我看错了？</p>'
+            },
+            floors: [
+                { num: '1楼', name: '用户40495', content: '我也看到了！就在刚才，绝对不是路灯' },
+                { num: '2楼', name: '用户76237', content: '可能是塔顶的信号灯故障了，别自己吓自己' },
+                { num: '3楼', name: '用户55082', content: '逐日塔废弃多少年了，哪来的信号灯。那地方本来就有古怪，老一辈都知道' }
+            ]
+        }
+    ];
+
+    // ==================== 打字机穿插段落 ====================
+    var typewriterSegments = [
+        // 看完帖子1后
+        '那个名字像一根针，从耳膜刺进去。L。L都证实了。我反复咀嚼这五个字，它们在我嘴里发苦。水龙头还在滴水，一滴，一滴，像有人在隔壁隔间里数我的脉搏。',
+        // 看完帖子2后
+        '我反复听了十七遍。那确实是我的声音。但我从来没有说过这些话。我还记得在那个教室里，F教授笑着拍了拍我的肩膀，说有批判精神是好事。三天后，这句话变成了另一种样子。耳机里有电流的嘶嘶声，像有人在模仿我的语调，一句一句，把我从来没有想过的东西，从我的喉咙里拽出来。',
+        // 看完帖子3后
+        '有人在论坛发了张照片。照片被裁掉了左右的人，只剩下我们两个的侧脸。那张照片的拍摄角度，只有站在我身后才能拍到。L当时就在那个位置，她说她在自拍。网吧里有烟味，有键盘的敲击声，有身后那个人的呼吸。我现在想起来，那天的呼吸声，和此刻我身后走廊里的脚步声，是一样的频率。',
+        // id 9 fallback（先读id 9时显示）
+        '对质之后，L拎着两杯奶茶来找我。她看见我，笑得和往常一样。'
+    ];
+
+    // 对质场景多段打字机（全部关键帖子读完后依次显示）
+    var confrontationSegments = [
+        '对质之后，L拎着两杯奶茶来找我。她看见我，笑得和往常一样。',
+        '我看着那双眼睛，和高三晚自习时一模一样。那时候我痛经，她翻墙出去给我买暖宝宝。但现在，那里面有什么东西变了。',
+        '"L，那些话是你说的吗。"我问',
+        '"我只是和他们聊天的时候，顺口一提。谁知道他们添油加醋传成这样。"L小声嘟哝着。L的奶茶掉在地上。芋泥溅开，像一滩淤紫的血。"晚晴，你不懂。我一个人在这个地方，如果我不说点什么，他们就会说我的。我只是想让他们喜欢我。"她的声音低了下去，变成喃喃自语...'
+    ];
+
+    // 已读关键帖子追踪
+    var readKeyPosts = new Set();
+    var totalKeyPosts = 4;
+
+    // ==================== 论坛列表 ====================
+    var forumListContainer = document.getElementById('forumListContainer');
+
+    function renderForumList() {
+        forumListContainer.innerHTML = '';
+        forumPosts.forEach(function(post) {
+            var item = document.createElement('div');
+            item.className = 'post-item';
+            item.dataset.id = post.id;
+            item.innerHTML =
+                '<div class="post-title"><span class="post-tag ' + post.tag + '">' + post.tagName + '</span>' + post.title + '</div>' +
+                '<div class="post-meta">' +
+                '<span>' + post.author + '</span>' +
+                '<span>' + post.time + '</span>' +
+                '<span>浏览 ' + post.views + '</span>' +
+                '<span>回复 ' + post.replies + '</span>' +
+                '</div>';
+            item.addEventListener('click', function() { openPost(post.id); });
+            forumListContainer.appendChild(item);
+        });
+    }
+
+    // ==================== 论坛帖子详情 ====================
+    var postDetailBody = document.getElementById('postDetailBody');
+    var postTitleSmall = document.getElementById('postTitleSmall');
+    var forumHint = document.getElementById('forumHint');
+    var currentPost = null;
+    var floorIndex = 0;
+    var postReading = false;
+
+    function openPost(id) {
+        currentPost = forumPosts.find(function(p) { return p.id === id; });
+        if (!currentPost) return;
+
+        postTitleSmall.textContent = currentPost.title;
+        postDetailBody.innerHTML = '';
+        floorIndex = 0;
+        postReading = true;
+
+        // 渲染楼主
+        var master = document.createElement('div');
+        master.className = 'floor-master';
+        master.innerHTML =
+            '<div class="floor-header">' +
+            '<div class="floor-avatar">楼主</div>' +
+            '<div class="floor-info"><div class="floor-name">' + currentPost.master.name + '</div><div class="floor-time">' + currentPost.master.time + '</div></div>' +
+            '</div>' +
+            '<div class="floor-content">' + currentPost.master.content + '</div>';
+        postDetailBody.appendChild(master);
+
+        switchScene('forumList', 'forumPost');
+        forumHint.classList.add('visible');
+    }
+
+    function nextFloor() {
+        if (!currentPost || floorIndex >= currentPost.floors.length) {
+            // 帖子读完
+            forumHint.classList.remove('visible');
+            postReading = false;
+            setTimeout(function() {
+                if (currentPost.keyPost && typeof currentPost.segmentIndex === 'number') {
+                    readKeyPosts.add(currentPost.id);
+                    switchScene('forumPost', 'typewriter');
+                    if (readKeyPosts.size >= totalKeyPosts) {
+                        runConfrontationSegments();
+                    } else {
+                        runTypewriter(typewriterSegments[currentPost.segmentIndex], function() {
+                            scenes.typewriter.addEventListener('click', returnToForum, { once: true });
+                        });
+                    }
+                } else {
+                    // 无关帖子，直接返回列表
+                    switchScene('forumPost', 'forumList');
+                }
+            }, 600);
+            return;
+        }
+
+        var floor = currentPost.floors[floorIndex];
+        var el = document.createElement('div');
+        el.className = 'floor-reply';
+        el.innerHTML =
+            '<div class="floor-header">' +
+            '<div class="floor-avatar">' + floor.num.charAt(0) + '</div>' +
+            '<div class="floor-info"><div class="floor-name">' + floor.name + '</div></div>' +
+            '<div class="floor-num">' + floor.num + '</div>' +
+            '</div>' +
+            '<div class="floor-content">' + floor.content + '</div>';
+        postDetailBody.appendChild(el);
+        floorIndex++;
+
+        requestAnimationFrame(function() {
+            el.classList.add('show');
+            postDetailBody.scrollTop = postDetailBody.scrollHeight;
+        });
+    }
+
+    function returnToForum() {
+        if (!typingDone) return;
+        switchScene('typewriter', 'forumList');
+    }
+
+    function goToRumors() {
+        if (!typingDone) return;
+        switchScene('typewriter', 'rumors');
+        startRumors();
+    }
+
+    function runConfrontationSegments() {
+        var segIndex = 0;
+
+        function showNext() {
+            if (segIndex >= confrontationSegments.length) {
+                // 最后一段打完，等待点击进入rumors
+                scenes.typewriter.addEventListener('click', function handler() {
+                    if (!typingDone) return;
+                    scenes.typewriter.removeEventListener('click', handler);
+                    goToRumors();
+                });
+                return;
+            }
+
+            typewriterText.innerHTML = '';
+            runTypewriter(confrontationSegments[segIndex], function() {
+                // 第4段（最后一段）触发血效果
+                if (segIndex === 3) {
+                    document.getElementById('bloodSpread').classList.add('active');
+                    document.getElementById('bloodDrop1').classList.add('active');
+                    document.getElementById('bloodDrop2').classList.add('active');
+                    document.getElementById('bloodDrop3').classList.add('active');
+                    document.getElementById('bloodDrop4').classList.add('active');
+                    document.getElementById('bloodDrop5').classList.add('active');
+                }
+                segIndex++;
+                scenes.typewriter.addEventListener('click', function handler() {
+                    if (!typingDone) return;
+                    scenes.typewriter.removeEventListener('click', handler);
+                    showNext();
+                });
+            });
+        }
+
+        showNext();
+    }
+
+    scenes.forumPost.addEventListener('click', function() {
+        if (!postReading) return;
+        nextFloor();
+    });
+
+    document.getElementById('postBack').addEventListener('click', function() {
+        switchScene('forumPost', 'forumList');
+        postReading = false;
+    });
+
+    // ==================== 第一幕：开场打字机 ====================
+    var openingText1 = '开学后，我搬回了青山大学的宿舍。室友们小心翼翼地避开周明远的话题，仿佛周明远的名字是一个需要消音的敏感词。只有L不一样。她在别人提起周明远的时候，会直视对方的眼睛，说，不要再谈这个名字了。她是唯一一个敢替我挡箭的人。我感激她。';
+    var openingText2 = '我感激到没有注意到，那些她替我说出口的话，后来都成了她的筹码...';
+
+    runTypewriter(openingText1, function() {
+        scenes.typewriter.addEventListener('click', function() {
+            if (!typingDone) return;
+            typewriterText.innerHTML = '';
+            runTypewriter(openingText2, function() {
+                scenes.typewriter.addEventListener('click', function() {
+                    if (!typingDone) return;
+                    switchScene('typewriter', 'forumList');
+                    renderForumList();
+                }, { once: true });
+            });
+        }, { once: true });
+    });
+
+    // ==================== L崩溃：全屏谣言铺满 ====================
+    var rumorTexts = [
+        '她当小三',
+        '她辱骂老师',
+        '她勾引学长',
+        '她硬插进去',
+        '她不知廉耻',
+        '她活该'
+    ];
+
+    function startRumors() {
+        var container = scenes.rumors;
+        var placed = [];
+
+        function placeText(text, delay) {
+            setTimeout(function() {
+                var span = document.createElement('div');
+                span.className = 'rumor-text';
+                span.textContent = text;
+
+                var x, y, tries = 0;
+                do {
+                    x = 5 + Math.random() * 70;
+                    y = 5 + Math.random() * 70;
+                    tries++;
+                } while (tries < 50 && placed.some(function(p) {
+                    return Math.abs(p.x - x) < 25 && Math.abs(p.y - y) < 15;
+                }));
+
+                placed.push({ x: x, y: y });
+                span.style.left = x + '%';
+                span.style.top = y + '%';
+                span.style.transform = 'rotate(' + (Math.random() * 20 - 10) + 'deg)';
+                container.appendChild(span);
+
+                requestAnimationFrame(function() {
+                    span.classList.add('show');
+                });
+
+                container.classList.remove('shake');
+                void container.offsetWidth;
+                container.classList.add('shake');
+            }, delay);
+        }
+
+        rumorTexts.forEach(function(text, i) {
+            placeText(text, i * 600);
+        });
+
+        setTimeout(function() {
+            window.location.href = './diary.html';
+        }, rumorTexts.length * 600 + 3000);
+    }
+
+    // ==================== 第三幕：日记本 ====================
+
+    </script>
+</body>
+</html>

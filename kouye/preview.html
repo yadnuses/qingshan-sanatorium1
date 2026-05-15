@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逐日塔迷雾</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .scene-preview {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            background: #0a0a0a;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .warning-img {
+            max-width: 560px;
+            max-height: 70vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            opacity: 0;
+            animation: imgIn 1.2s ease 0.3s forwards;
+        }
+
+        @keyframes imgIn {
+            0% { opacity: 0; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 36px;
+            font-size: 14px;
+            color: #a09888;
+            letter-spacing: 3px;
+            text-decoration: none;
+            font-family: "KaiTi", "STKaiti", "楷体", serif;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(100, 100, 100, 0.4);
+            border-radius: 4px;
+            padding: 12px 40px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 1.2s forwards;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(60, 60, 60, 0.9);
+            color: #c8c0b0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene-preview">
+        <img class="warning-img" src="images/警示牌.png" alt="警示牌">
+        <a href="http://localhost:8080/" class="back-btn">返回</a>
+    </div>
+</body>
+</html>

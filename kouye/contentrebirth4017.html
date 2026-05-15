@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晚晴的邮箱</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --paper: #f0ece4;
+            --paper-dark: #e2dcd2;
+            --ink: #2a2520;
+            --ink-light: #5a5248;
+            --accent: #3d6b4a;
+            --accent-light: #5a8f6a;
+            --alert: #b4382a;
+            --highlight: #d4a843;
+        }
+
+        body {
+            font-family: "Noto Serif SC", "STSong", "SimSun", serif;
+            background: var(--paper);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 漫画网点纹理 */
+        .comic-dots {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle 1.5px at 8px 8px, rgba(40,35,30,0.06) 0%, transparent 100%),
+                radial-gradient(circle 1.5px at 24px 24px, rgba(40,35,30,0.04) 0%, transparent 100%);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 邮箱主界面 */
+        .mailbox {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* 左侧文件夹栏 */
+        .sidebar {
+            width: 200px;
+            background: linear-gradient(180deg, #e8e2d8 0%, #ddd6ca 100%);
+            border-right: 2px solid var(--ink);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-logo {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed var(--ink-light);
+            color: var(--accent);
+        }
+
+        .folder {
+            padding: 10px 14px;
+            border-radius: 8px 2px 8px 2px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        .folder:hover {
+            background: rgba(61,107,74,0.1);
+        }
+
+        .folder.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 2px 2px 0 var(--ink);
+        }
+
+        .folder .badge {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--alert);
+            color: white;
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 8px;
+        }
+
+        /* 中间邮件列表 */
+        .mail-list {
+            width: 340px;
+            background: var(--paper);
+            border-right: 1px solid var(--paper-dark);
+            overflow-y: auto;
+        }
+
+        .list-header {
+            padding: 20px;
+            border-bottom: 2px solid var(--ink);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .mail-item {
+            padding: 16px 20px;
+            border-bottom: 1px dashed var(--paper-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .mail-item:hover {
+            background: rgba(61,107,74,0.05);
+        }
+
+        .mail-item.selected {
+            background: rgba(61,107,74,0.12);
+            border-left: 3px solid var(--accent);
+        }
+
+        .mail-item.unread .sender,
+        .mail-item.unread .subject {
+            font-weight: 600;
+        }
+
+        .mail-item .dot {
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            width: 7px;
+            height: 7px;
+            background: var(--alert);
+            border-radius: 50%;
+        }
+
+        .mail-item .sender {
+            font-size: 13px;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .mail-item .subject {
+            font-size: 13px;
+            color: var(--ink-light);
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mail-item .preview {
+            font-size: 12px;
+            color: #888078;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mail-item .date {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            font-size: 11px;
+            color: #9a9288;
+        }
+
+        .mail-item .encrypt-tag {
+            display: inline-block;
+            background: var(--alert);
+            color: white;
+            font-size: 10px;
+            padding: 1px 5px;
+            border-radius: 2px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        /* 右侧阅读区 */
+        .mail-content {
+            flex: 1;
+            background: #f8f4ee;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .content-empty {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a09888;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .content-body {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .content-body.active {
+            display: flex;
+        }
+
+        .content-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--paper-dark);
+        }
+
+        .content-header .subject-line {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .content-header .meta {
+            font-size: 13px;
+            color: var(--ink-light);
+        }
+
+        .content-header .meta span {
+            margin-right: 20px;
+        }
+
+        .content-text {
+            flex: 1;
+            padding: 32px;
+            font-size: 15px;
+            line-height: 2.2;
+            overflow-y: auto;
+            color: var(--ink);
+        }
+
+        .content-text p {
+            margin-bottom: 16px;
+            text-indent: 2em;
+        }
+
+        /* 漫画对话框样式 */
+        .comic-box {
+            background: white;
+            border: 2px solid var(--ink);
+            border-radius: 12px 4px 12px 4px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 3px 3px 0 rgba(40,35,30,0.1);
+        }
+
+        .comic-box::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 30px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-right: 2px solid var(--ink);
+            border-bottom: 2px solid var(--ink);
+            transform: rotate(45deg);
+        }
+
+        .comic-box.no-tail::before {
+            display: none;
+        }
+
+        .comic-box.important {
+            border-color: var(--alert);
+            background: #fdf5f3;
+        }
+
+        .comic-box.important::before {
+            border-color: var(--alert);
+            background: #fdf5f3;
+        }
+
+        .comic-box .box-text {
+            font-family: "KaiTi", "STKaiti", "楷体", serif;
+            font-size: 16px;
+            line-height: 2;
+            color: var(--ink);
+        }
+
+        /* 解密面板 */
+        .decrypt-panel {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(240,236,228,0.96);
+            z-index: 10;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .decrypt-panel.active {
+            display: flex;
+        }
+
+        .decrypt-box {
+            background: white;
+            border: 2px solid var(--ink);
+            border-radius: 8px 2px 8px 2px;
+            padding: 40px 48px;
+            text-align: center;
+            box-shadow: 4px 4px 0 rgba(40,35,30,0.15);
+            max-width: 420px;
+        }
+
+        .decrypt-box h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .decrypt-box .hint {
+            font-size: 13px;
+            color: var(--ink-light);
+            margin-bottom: 24px;
+            font-family: "FangSong", "STFangsong", "仿宋", serif;
+        }
+
+        .decrypt-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--paper-dark);
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            background: var(--paper);
+        }
+
+        .decrypt-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .decrypt-btn {
+            padding: 10px 36px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            cursor: pointer;
+            letter-spacing: 3px;
+            transition: background 0.2s;
+        }
+
+        .decrypt-btn:hover {
+            background: var(--accent-light);
+        }
+
+        .decrypt-loading {
+            display: none;
+            font-size: 14px;
+            color: var(--ink-light);
+            letter-spacing: 2px;
+        }
+
+        .decrypt-loading.active {
+            display: block;
+        }
+
+        .decrypt-loading .dots::after {
+            content: '';
+            animation: dotAnim 1.5s infinite;
+        }
+
+        @keyframes dotAnim {
+            0% { content: ''; }
+            33% { content: '.'; }
+            66% { content: '..'; }
+            100% { content: '...'; }
+        }
+
+        /* 逐日塔剪影 */
+        .tower-layer {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 99;
+            display: none;
+            background: linear-gradient(180deg, rgba(20,18,16,0) 0%, rgba(20,18,16,0.3) 60%, rgba(20,18,16,0.7) 100%);
+        }
+
+        .tower-layer.active {
+            display: block;
+            animation: towerFade 3s ease forwards;
+        }
+
+        @keyframes towerFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tower-silhouette {
+            position: absolute;
+            bottom: 0;
+            right: 5%;
+            width: 80px;
+            height: 200px;
+            background: #1a1815;
+            clip-path: polygon(50% 0%, 55% 15%, 60% 20%, 58% 40%, 62% 45%, 60% 70%, 65% 75%, 60% 100%, 40% 100%, 35% 75%, 40% 70%, 38% 45%, 42% 40%, 40% 20%, 45% 15%);
+        }
+
+        .tower-silhouette::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background: #1a1815;
+            border-radius: 2px;
+        }
+
+        /* 最后一行字 */
+        .final-line {
+            text-align: center;
+            font-size: 18px;
+            color: var(--alert);
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin: 30px 0;
+            font-family: "KaiTi", "STKaiti", "楷体", serif;
+        }
+
+        .next-chapter-btn {
+            display: block;
+            width: 180px;
+            margin: 40px auto 0;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            letter-spacing: 3px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .next-chapter-btn:hover {
+            background: var(--accent-light);
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--paper-dark); border-radius: 3px; }
+
+        @media (max-width: 900px) {
+            .sidebar { width: 160px; }
+            .mail-list { width: 260px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="comic-dots"></div>
+
+    <div class="mailbox">
+        <!-- 左侧文件夹 -->
+        <div class="sidebar">
+            <div class="sidebar-logo">Q Mail</div>
+            <div class="folder active" data-folder="inbox">收件箱 <span class="badge">3</span></div>
+            <div class="folder" data-folder="drafts">草稿箱</div>
+            <div class="folder" data-folder="sent">已发送</div>
+            <div class="folder" data-folder="trash">回收站</div>
+        </div>
+
+        <!-- 邮件列表 -->
+        <div class="mail-list">
+            <div class="list-header">收件箱</div>
+            <div id="mailListContainer"></div>
+        </div>
+
+        <!-- 阅读区 -->
+        <div class="mail-content">
+            <div class="content-empty" id="emptyState">点击左侧邮件阅读</div>
+            <div class="content-body" id="contentBody">
+                <div class="content-header">
+                    <div class="subject-line" id="contentSubject"></div>
+                    <div class="meta" id="contentMeta"></div>
+                </div>
+                <div class="content-text" id="contentText"></div>
+            </div>
+
+            <!-- 解密面板 -->
+            <div class="decrypt-panel" id="decryptPanel">
+                <div class="decrypt-box">
+                    <h3>加密邮件</h3>
+                    <p class="hint">他常用的密码——我的生日</p>
+                    <input type="text" class="decrypt-input" id="decryptInput" placeholder="******" maxlength="8">
+                    <p class="decrypt-error" id="decryptError" style="display:none;color:#b4382a;font-size:13px;margin-bottom:12px;">密码错误。线索也许就藏在身边。</p>
+                    <button class="decrypt-btn" id="decryptBtn">解密</button>
+                    <p class="decrypt-loading" id="decryptLoading">正在解密<span class="dots"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 逐日塔层 -->
+    <div class="tower-layer" id="towerLayer">
+        <div class="tower-silhouette"></div>
+    </div>
+
+    <script>
+    (function() {
+        var mails = [
+            {
+                id: 1,
+                folder: 'inbox',
+                unread: true,
+                sender: '系统安全中心',
+                subject: '异常登录提醒',
+                date: '03-17',
+                preview: '您的账户于3月15日凌晨3:17在青山市...',
+                content: '<p>尊敬的用户：</p><p>检测到您的账户于 3月15日凌晨3:17 在 青山市青山路88号 附近发生异常登录。</p><p>登录设备：未知终端<br>IP地址：192.168.7.***</p><p>如您本人操作，请忽略本邮件。如非本人操作，建议立即修改密码。</p>'
+            },
+            {
+                id: 2,
+                folder: 'inbox',
+                unread: false,
+                sender: '青山日报 <noreply@qsdaily.com>',
+                subject: '【突发】青山疗养院昨夜突发大火，建筑完全损毁',
+                date: '03-16',
+                preview: '本报记者讯，昨日凌晨，位于青山路88号的青山疗养院...',
+                content: '<p>本报记者讯，昨日凌晨，位于青山路88号的青山疗养院突发大火。消防部门于凌晨3:42接到火警，出动12辆消防车赶赴现场。</p><p>截至发稿时，大火已被扑灭，但疗养院主楼已完全坍塌。官方初步判断起火原因为 电路老化短路。</p><p>据现场目击者称，火灾发生时曾听到类似爆炸的巨响，并看见 一团巨大的火球升向空中。附近居民王女士描述："那光太亮了，把整个后山都照成了橘红色，不像是普通的火灾。"</p><p>目前，青山市公安局已介入调查。院方表示，事发时楼内人员已全部撤离，暂无人员伤亡报告。</p>'
+            },
+            {
+                id: 3,
+                folder: 'inbox',
+                unread: true,
+                sender: '青山市公安局',
+                subject: '关于周明远先生失踪案件的最新进展',
+                date: '03-18',
+                preview: '经现场勘查，在疗养院废墟中发现一只烧焦的背包...',
+                content: '<p>林晚晴女士：</p><p>您好。现就周明远先生失踪一案向您通报最新进展。</p><p>经现场勘查及DNA比对，我们在疗养院废墟中发现的一只 烧焦背包 确系周明远先生所有。背包内有一部损毁严重的手机、一本笔记本，以及 一封未开封的加密信件。</p><p>加密信件已移交技术部门处理。如有进一步进展，我们将及时通知您。</p><p>此致<br>青山市公安局刑侦大队<br>1998年3月18日</p>'
+            },
+            {
+                id: 4,
+                folder: 'drafts',
+                unread: false,
+                sender: '周明远（草稿）',
+                subject: '无主题',
+                date: '03-01',
+                preview: '晚晴，疗养院的病历有问题，等我回来细说...',
+                content: '<div class="comic-box"><div class="box-text">晚晴，疗养院的病历有问题，等我回来细说。</div></div><p style="color:#888;font-size:13px;margin-top:40px;">—— 这是一封未发送的草稿。保存时间：3月1日 22:17</p><p style="color:#888;font-size:13px;">收件人：晚晴 &lt;wanqing@qmail.com&gt;</p>'
+            },
+            {
+                id: 5,
+                folder: 'inbox',
+                unread: true,
+                encrypted: true,
+                sender: '未知发件人',
+                subject: '（无主题）',
+                date: '03-15',
+                preview: '[加密邮件，需要密码查看]',
+                content: null
+            },
+            {
+                id: 6,
+                folder: 'inbox',
+                unread: true,
+                hidden: true,
+                sender: '？？？',
+                subject: '（无主题）',
+                date: '03-15',
+                preview: '',
+                content: '<div class="final-line">青山市的故事远远没有结束。<br>小心你身边的人。</div><a href="./chapter2.html" class="next-chapter-btn">进入大学</a>'
+            }
+        ];
+
+        var currentFolder = 'inbox';
+        var selectedMailId = null;
+        var decrypted = false;
+
+        var mailListContainer = document.getElementById('mailListContainer');
+        var emptyState = document.getElementById('emptyState');
+        var contentBody = document.getElementById('contentBody');
+        var contentSubject = document.getElementById('contentSubject');
+        var contentMeta = document.getElementById('contentMeta');
+        var contentText = document.getElementById('contentText');
+        var decryptPanel = document.getElementById('decryptPanel');
+        var decryptInput = document.getElementById('decryptInput');
+        var decryptBtn = document.getElementById('decryptBtn');
+        var decryptLoading = document.getElementById('decryptLoading');
+
+        function renderMailList() {
+            mailListContainer.innerHTML = '';
+            mails.forEach(function(mail) {
+                if (mail.folder !== currentFolder) return;
+                if (mail.hidden) return;
+
+                var item = document.createElement('div');
+                item.className = 'mail-item' + (mail.unread ? ' unread' : '') + (mail.id === selectedMailId ? ' selected' : '');
+                item.dataset.id = mail.id;
+
+                var html = '';
+                if (mail.unread) html += '<div class="dot"></div>';
+                html += '<div class="sender">' + escapeHtml(mail.sender) + '</div>';
+                html += '<div class="subject">' + escapeHtml(mail.subject);
+                if (mail.encrypted) html += '<span class="encrypt-tag">加密</span>';
+                html += '</div>';
+                html += '<div class="preview">' + escapeHtml(mail.preview) + '</div>';
+                html += '<div class="date">' + escapeHtml(mail.date) + '</div>';
+
+                item.innerHTML = html;
+                item.addEventListener('click', function() { openMail(mail.id); });
+                mailListContainer.appendChild(item);
+            });
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function openMail(id) {
+            var mail = mails.find(function(m) { return m.id === id; });
+            if (!mail) return;
+
+            selectedMailId = id;
+
+            // 更新列表选中态
+            document.querySelectorAll('.mail-item').forEach(function(el) {
+                el.classList.toggle('selected', parseInt(el.dataset.id) === id);
+            });
+
+            // 加密邮件特殊处理
+            if (mail.encrypted && !decrypted) {
+                emptyState.style.display = 'none';
+                contentBody.classList.remove('active');
+                decryptPanel.classList.add('active');
+                decryptInput.value = '';
+                decryptInput.focus();
+                return;
+            }
+
+            // 标记已读
+            mail.unread = false;
+            renderMailList();
+            updateBadge();
+
+            // 显示内容
+            emptyState.style.display = 'none';
+            decryptPanel.classList.remove('active');
+            contentBody.classList.add('active');
+            contentSubject.textContent = mail.subject;
+            contentMeta.innerHTML = '<span>发件人：' + escapeHtml(mail.sender) + '</span><span>日期：1998年' + escapeHtml(mail.date) + '</span>';
+            contentText.innerHTML = mail.content || '<p>（无内容）</p>';
+
+
+        }
+
+        function updateBadge() {
+            var count = mails.filter(function(m) { return m.folder === 'inbox' && m.unread && !m.hidden; }).length;
+            var badge = document.querySelector('.folder[data-folder="inbox"] .badge');
+            if (badge) badge.textContent = count;
+        }
+
+        // 解密
+        var decryptError = document.getElementById('decryptError');
+
+        decryptBtn.addEventListener('click', function() {
+            var input = decryptInput.value.trim();
+            if (input !== '4017') {
+                decryptError.style.display = 'block';
+                decryptInput.value = '';
+                decryptInput.focus();
+                return;
+            }
+            decryptError.style.display = 'none';
+            decryptBtn.style.display = 'none';
+            decryptInput.style.display = 'none';
+            decryptLoading.classList.add('active');
+
+            setTimeout(function() {
+                decrypted = true;
+                decryptPanel.classList.remove('active');
+                decryptBtn.style.display = '';
+                decryptInput.style.display = '';
+                decryptLoading.classList.remove('active');
+
+                mails.find(function(m) { return m.id === 6; }).hidden = false;
+                renderMailList();
+                openMail(6);
+            }, 2500);
+        });
+
+        decryptInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') decryptBtn.click();
+        });
+
+        // 文件夹切换
+        document.querySelectorAll('.folder').forEach(function(f) {
+            f.addEventListener('click', function() {
+                document.querySelectorAll('.folder').forEach(function(el) { el.classList.remove('active'); });
+                f.classList.add('active');
+                currentFolder = f.dataset.folder;
+                renderMailList();
+            });
+        });
+
+        // 初始化
+        renderMailList();
+    })();
+    </script>
+</body>
+</html>

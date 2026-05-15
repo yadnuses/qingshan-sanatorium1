@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口业</title>
+    <style>
+        @font-face {
+            font-family: '汇文明朝体';
+            src: url('./fonts/汇文明朝体.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* 真实纸张纹理背景 */
+        .paper {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                /* 层13: 纤维结 - 大纸浆疙瘩 */
+                radial-gradient(circle 5px at 8% 18%, rgba(120, 100, 70, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 4px at 23% 34%, rgba(130, 110, 80, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 3px at 67% 12%, rgba(140, 120, 90, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 6px at 45% 78%, rgba(120, 100, 70, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 4px at 82% 56%, rgba(135, 115, 85, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 5px at 15% 89%, rgba(125, 105, 75, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 3px at 91% 23%, rgba(145, 125, 95, 0.15) 0%, transparent 100%),
+                radial-gradient(circle 5px at 38% 45%, rgba(118, 98, 68, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 4px at 72% 91%, rgba(132, 112, 82, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 6px at 52% 8%, rgba(115, 95, 65, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 3px at 95% 67%, rgba(128, 108, 78, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 5px at 5% 62%, rgba(122, 102, 72, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 4px at 78% 38%, rgba(136, 116, 86, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 3px at 42% 95%, rgba(112, 92, 62, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 5px at 88% 82%, rgba(125, 105, 75, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 4px at 18% 52%, rgba(140, 120, 90, 0.16) 0%, transparent 100%),
+                radial-gradient(circle 3px at 63% 28%, rgba(118, 98, 68, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 5px at 35% 62%, rgba(130, 110, 80, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 4px at 95% 45%, rgba(120, 100, 70, 0.22) 0%, transparent 100%),
+                /* 层12: 纤维结 - 中等疙瘩 */
+                radial-gradient(circle 2px at 12% 15%, rgba(110, 90, 60, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 2px at 55% 67%, rgba(120, 100, 70, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 2px at 88% 44%, rgba(105, 85, 55, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 2px at 33% 92%, rgba(115, 95, 65, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 2px at 77% 8%, rgba(125, 105, 75, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 28% 72%, rgba(108, 88, 58, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 2px at 62% 52%, rgba(132, 112, 82, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 48% 18%, rgba(118, 98, 68, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 2px at 85% 95%, rgba(140, 120, 90, 0.18) 0%, transparent 100%),
+                radial-gradient(circle 2px at 3% 38%, rgba(125, 105, 75, 0.22) 0%, transparent 100%),
+                radial-gradient(circle 2px at 58% 88%, rgba(112, 92, 62, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 93% 12%, rgba(135, 115, 85, 0.19) 0%, transparent 100%),
+                radial-gradient(circle 2px at 15% 48%, rgba(120, 100, 70, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 2px at 73% 73%, rgba(128, 108, 78, 0.21) 0%, transparent 100%),
+                radial-gradient(circle 2px at 42% 35%, rgba(115, 95, 65, 0.23) 0%, transparent 100%),
+                radial-gradient(circle 2px at 98% 58%, rgba(122, 102, 72, 0.17) 0%, transparent 100%),
+                /* 层11.5: 细小杂质 */
+                radial-gradient(circle 1px at 5% 5%, rgba(100, 80, 50, 0.35) 0%, transparent 100%),
+                radial-gradient(circle 1px at 18% 28%, rgba(115, 95, 65, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 35% 12%, rgba(105, 85, 55, 0.32) 0%, transparent 100%),
+                radial-gradient(circle 1px at 50% 50%, rgba(120, 100, 70, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 68% 35%, rgba(110, 90, 60, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 82% 18%, rgba(125, 105, 75, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 95% 82%, rgba(108, 88, 58, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 8% 75%, rgba(118, 98, 68, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 25% 58%, rgba(130, 110, 80, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 1px at 45% 85%, rgba(115, 95, 65, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 60% 5%, rgba(122, 102, 72, 0.27) 0%, transparent 100%),
+                radial-gradient(circle 1px at 75% 48%, rgba(105, 85, 55, 0.32) 0%, transparent 100%),
+                radial-gradient(circle 1px at 90% 65%, rgba(118, 98, 68, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 12% 42%, rgba(135, 115, 85, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 38% 68%, rgba(110, 90, 60, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 55% 25%, rgba(125, 105, 75, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 72% 82%, rgba(120, 100, 70, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 88% 38%, rgba(112, 92, 62, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 28% 8%, rgba(128, 108, 78, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 1px at 48% 42%, rgba(118, 98, 68, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 65% 62%, rgba(130, 110, 80, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 85% 92%, rgba(115, 95, 65, 0.27) 0%, transparent 100%),
+                radial-gradient(circle 1px at 2% 95%, rgba(122, 102, 72, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 32% 22%, rgba(108, 88, 58, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 52% 72%, rgba(125, 105, 75, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 78% 12%, rgba(118, 98, 68, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 98% 28%, rgba(132, 112, 82, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 15% 82%, rgba(110, 90, 60, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 42% 5%, rgba(120, 100, 70, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 58% 48%, rgba(128, 108, 78, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 82% 75%, rgba(115, 95, 65, 0.27) 0%, transparent 100%),
+                radial-gradient(circle 1px at 92% 8%, rgba(122, 102, 72, 0.25) 0%, transparent 100%),
+                radial-gradient(circle 1px at 22% 95%, rgba(118, 98, 68, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 68% 18%, rgba(105, 85, 55, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 8% 58%, rgba(130, 110, 80, 0.24) 0%, transparent 100%),
+                radial-gradient(circle 1px at 35% 78%, rgba(112, 92, 62, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 55% 38%, rgba(120, 100, 70, 0.26) 0%, transparent 100%),
+                radial-gradient(circle 1px at 75% 58%, rgba(135, 115, 85, 0.28) 0%, transparent 100%),
+                radial-gradient(circle 1px at 95% 48%, rgba(118, 98, 68, 0.25) 0%, transparent 100%),
+                /* 层11: 云纹 - 大范围不均匀 */
+                radial-gradient(ellipse 600px 400px at 30% 40%, rgba(160, 140, 100, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 350px at 70% 60%, rgba(150, 130, 95, 0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 500px at 50% 80%, rgba(155, 135, 100, 0.04) 0%, transparent 60%),
+                /* 层10: 对角线纤维 - 斜向 */
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 18px,
+                    rgba(160, 140, 100, 0.025) 18px,
+                    rgba(160, 140, 100, 0.025) 19px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 22px,
+                    rgba(150, 130, 90, 0.02) 22px,
+                    rgba(150, 130, 90, 0.02) 23px
+                ),
+                /* 层9: 纤维纹理 - 中等密度竖纹 */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(170, 150, 110, 0.025) 8px,
+                    rgba(170, 150, 110, 0.025) 9px
+                ),
+                /* 层8: 纤维纹理 - 中等密度横纹 */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 6px,
+                    rgba(165, 145, 105, 0.03) 6px,
+                    rgba(165, 145, 105, 0.03) 7px
+                ),
+                /* 层7: 纤维纹理 - 稀疏竖纹 */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(160, 140, 100, 0.04) 40px,
+                    rgba(160, 140, 100, 0.04) 41px
+                ),
+                /* 层6: 纤维纹理 - 细密横纹 */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(180, 160, 120, 0.035) 2px,
+                    rgba(180, 160, 120, 0.035) 3px
+                ),
+                /* 层5: 污渍 - 右上 */
+                radial-gradient(ellipse 200px 280px at 85% 15%, rgba(145, 115, 65, 0.1) 0%, transparent 65%),
+                /* 层4: 污渍 - 左上 */
+                radial-gradient(ellipse 300px 200px at 15% 20%, rgba(150, 120, 70, 0.15) 0%, transparent 70%),
+                /* 层3: 污渍 - 右下 */
+                radial-gradient(ellipse 250px 350px at 80% 75%, rgba(140, 110, 60, 0.12) 0%, transparent 70%),
+                /* 层2: 污渍 - 中心泛黄 */
+                radial-gradient(ellipse 500px 400px at 50% 50%, rgba(170, 150, 100, 0.08) 0%, transparent 80%),
+                /* 层1: 边缘暗角 */
+                radial-gradient(ellipse at center, transparent 50%, rgba(100, 80, 50, 0.25) 100%),
+                /* 层0: 基础底色 - 泛黄 */
+                linear-gradient(170deg, #e8dcc8 0%, #ddd0b8 30%, #e2d5bf 60%, #d8cbb2 100%);
+        }
+
+        /* 纸张纤维 - 双层 SVG 噪点 */
+        .paper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                /* 粗噪点 - 模拟纸浆颗粒 */
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n1)' opacity='0.05'/%3E%3C/svg%3E"),
+                /* 细噪点 - 模拟纤维表面 */
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* 折痕与细微褶皱 */
+        .paper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                /* 主折痕 - 横向 */
+                linear-gradient(90deg, transparent 49.5%, rgba(0,0,0,0.03) 49.8%, rgba(255,255,255,0.02) 50.2%, transparent 50.5%),
+                /* 主折痕 - 纵向 */
+                linear-gradient(0deg, transparent 49.5%, rgba(0,0,0,0.02) 49.8%, rgba(255,255,255,0.015) 50.2%, transparent 50.5%),
+                /* 细微褶皱 - 斜向 */
+                linear-gradient(35deg, transparent 48%, rgba(0,0,0,0.008) 49%, rgba(255,255,255,0.005) 51%, transparent 52%),
+                /* 细微褶皱 - 另一斜向 */
+                linear-gradient(-25deg, transparent 47%, rgba(0,0,0,0.006) 48.5%, rgba(255,255,255,0.004) 51.5%, transparent 53%);
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-family: "汇文明朝体", "KaiTi", "STKaiti", "楷体", serif;
+            font-size: 26px;
+            font-weight: bold;
+            color: #3a3020;
+            line-height: 2.8;
+            letter-spacing: 4px;
+        }
+
+        .quote-text .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #3a3020;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .source {
+            font-family: "FangSong", "STFangsong", "仿宋", serif;
+            font-size: 17px;
+            color: #6a5a40;
+            margin-top: 40px;
+            letter-spacing: 3px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .source.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="paper"></div>
+
+    <div class="content">
+        <div class="quote-text" id="quoteText"></div>
+        <div class="source" id="source">——《受三皈五戒八戒斋文》</div>
+    </div>
+
+    <script>
+        var line1 = '我弟子某甲，從今盡形不殺、不盜、不邪婬，是身善業；';
+        var line2 = '不妄言、兩舌、不惡口、綺語，是口善業；';
+        var line3 = '不嫉妒、瞋恚、娇慢、邪見，是意善業。';
+        var text = line1 + line2 + line3;
+        var breakAt = [line1.length, line1.length + line2.length];
+        var container = document.getElementById('quoteText');
+        var sourceEl = document.getElementById('source');
+        var i = 0;
+
+        // 添加光标
+        var cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        container.appendChild(cursor);
+
+        function typeNext() {
+            if (i < text.length) {
+                // 在光标前插入字符
+                var charSpan = document.createTextNode(text[i]);
+                container.insertBefore(charSpan, cursor);
+                i++;
+
+                // 换行
+                if (breakAt.indexOf(i) !== -1) {
+                    var br = document.createElement('br');
+                    container.insertBefore(br, cursor);
+                }
+
+                // 标点符号后停顿稍长
+                var delay = '，；。、'.indexOf(text[i - 1]) !== -1 ? 200 : 80;
+                setTimeout(typeNext, delay);
+            } else {
+                // 打字完成，移除光标，显示出处
+                setTimeout(function() {
+                    cursor.style.display = 'none';
+                    sourceEl.classList.add('visible');
+                }, 600);
+            }
+        }
+
+        // 延迟开始打字
+        setTimeout(typeNext, 1500);
+    </script>
+</body>
+</html>

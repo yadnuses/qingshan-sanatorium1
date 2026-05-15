@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口业 · 逐日塔</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .scene-tower {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            background: #0a0a0a;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .window-view {
+            width: 600px;
+            height: 400px;
+            border: 4px solid #1a1a1a;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 80px 60px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 150px 20px, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 250px 80px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 350px 40px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 450px 70px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 520px 25px, rgba(255,255,255,0.5), transparent);
+        }
+
+        .tower-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tower-light {
+            position: absolute;
+            top: 18%;
+            left: 52%;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #a0c8d8;
+            box-shadow: 0 0 20px #a0c8d8, 0 0 40px rgba(160,200,216,0.3);
+            opacity: 0;
+            transition: opacity 2s ease;
+            z-index: 2;
+        }
+
+        .tower-light.on {
+            opacity: 1;
+        }
+
+        .tower-text {
+            color: #a09888;
+            font-size: 15px;
+            line-height: 2.4;
+            text-align: center;
+            margin-top: 40px;
+            max-width: 500px;
+            font-family: "KaiTi", "STKaiti", "楷体", serif;
+        }
+
+        .tower-text .char {
+            opacity: 0;
+        }
+
+        .tower-text .char.show {
+            opacity: 1;
+            transition: opacity 0.05s ease;
+        }
+
+        .next-link {
+            display: inline-block;
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: #a0c8d8;
+            font-size: 14px;
+            letter-spacing: 3px;
+            opacity: 0.15;
+            transition: opacity 1s ease, background 0.3s ease;
+            text-decoration: none;
+            font-family: "KaiTi", "STKaiti", "楷体", serif;
+            background: rgba(20, 30, 50, 0.8);
+            border: 1px solid rgba(160, 200, 216, 0.3);
+            border-radius: 4px;
+            padding: 12px 32px;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .next-link.visible {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .next-link:hover {
+            background: rgba(30, 45, 70, 0.9);
+            border-color: rgba(160, 200, 216, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="scene-tower" id="sceneTower">
+        <div class="window-view">
+            <div class="stars"></div>
+            <img class="tower-img" src="images/横屏.png" alt="逐日塔">
+            <div class="tower-light" id="towerLight"></div>
+        </div>
+        <div class="tower-text" id="towerText"></div>
+    </div>
+    <a href="./ending.html" class="next-link" id="nextLink">点击继续</a>
+
+    <script>
+    var towerLight = document.getElementById('towerLight');
+    var towerText = document.getElementById('towerText');
+    var nextLink = document.getElementById('nextLink');
+
+    var towerLines = [
+        '我拿起外套，推开门。',
+        '走廊的声控灯没有亮，',
+        '但尽头有脚步声，很轻，',
+        '像是有人在模仿我的步频。',
+        '我朝着后山走去。'
+    ];
+
+    function startTower() {
+        setTimeout(function() {
+            towerLight.classList.add('on');
+        }, 1000);
+
+        var delay = 2500;
+        towerLines.forEach(function(line, i) {
+            setTimeout(function() {
+                var p = document.createElement('p');
+                var chars = line.split('');
+                chars.forEach(function(ch) {
+                    var span = document.createElement('span');
+                    span.className = 'char';
+                    span.textContent = ch;
+                    p.appendChild(span);
+                });
+                towerText.appendChild(p);
+
+                requestAnimationFrame(function() {
+                    p.querySelectorAll('.char').forEach(function(span, j) {
+                        setTimeout(function() {
+                            span.classList.add('show');
+                        }, j * 50);
+                    });
+                });
+            }, delay + i * 1500);
+        });
+
+        setTimeout(function() {
+            nextLink.classList.add('visible');
+        }, delay + towerLines.length * 1500 + 800);
+    }
+
+    startTower();
+    </script>
+</body>
+</html>
