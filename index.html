@@ -481,6 +481,32 @@
         </div>
 
         <div class="footer">© 1998 YADNUS | 本游戏纯属虚构</div>
+        <div id="visits" class="footer" style="margin-top:8px;font-size:11px;opacity:.5" hidden>已有 <b id="visitCount">—</b> 位调查员到访</div>
     </div>
+
+    <script>
+    (function(){
+      var box=document.getElementById('visits'),num=document.getElementById('visitCount');
+      if(!box||!num)return;
+      var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function fmt(n){return Math.round(n).toLocaleString('en-US');}
+      function countUp(to){
+        if(!to)return;
+        if(reduce){num.textContent=fmt(to);box.hidden=false;return;}
+        box.hidden=false;
+        var dur=Math.min(1800,600+to*2),t0=performance.now();
+        num.textContent='0';
+        (function step(now){
+          var p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);
+          num.textContent=fmt(to*e);
+          if(p<1)requestAnimationFrame(step); else num.textContent=fmt(to);
+        })(t0);
+      }
+      fetch('https://abacus.jasoncameron.dev/hit/qingshan-sanatorium1/visits',{cache:'no-store'})
+        .then(function(r){return r.ok?r.json():null;})
+        .then(function(d){ if(d&&typeof d.value==='number') countUp(d.value); })
+        .catch(function(){});
+    })();
+    </script>
 </body>
 </html>
